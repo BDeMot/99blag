@@ -20,7 +20,8 @@ export default {
 .thumbsup{
   padding: 3px;
   &:hover{
-    background-color: greenyellow;
+    background-image: radial-gradient(rgb(11, 198, 74) .5px, transparent 0);
+    background-size: 2.5px 2.5px;
   }
   & svg path {
     fill: green;

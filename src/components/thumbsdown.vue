@@ -20,7 +20,8 @@ export default {
 .thumbsDown{
   padding: 3px;
   &:hover{
-    background-color: rgb(246, 145, 145);
+    background-image: radial-gradient(rgb(198, 33, 11) .5px, transparent 0);
+    background-size: 2.5px 2.5px;
   }
   & svg path {
     fill: red;

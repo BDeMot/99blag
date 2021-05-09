@@ -44,6 +44,8 @@ body{
   background-color: white;
   width: 100vw;
   min-width: 350px;
+  position: sticky;
+  top: 0;
   a {
     font-weight: bold;
     &.router-link-exact-active {
@@ -61,19 +63,18 @@ body{
   text-decoration: none;
   padding-top: 7px;
   margin: 10px;
-  transition: all 200ms ease-in-out;
   color: white;
   text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
   &__signup{
     background: white;
+    margin-right: 20px;
   }
   &__login{
     background: white;
   }
   &:hover{
-    background-image: radial-gradient(black .5px, transparent 0);
+    background-image: radial-gradient(rgba(0, 0, 0, 0.618) .5px, transparent 0);
     background-size: 2.5px 2.5px;
-    background-position: -19px -19px;
     color: white;
   }
 }

@@ -1,26 +1,29 @@
 <template>
-  <div class="gag">
-    <div class="likesNComments">
-      <div class="likesNComments__likes">
-        <likesHandler />
-      </div>
-      <div class="likesNComments__comm"></div>
-    </div>
+  <div>
+  <div class="card">
+    <card />
+  </div>
+  <div class="card">
+    <card />
+  </div>
+  <div class="card">
+    <card />
+  </div>
   </div>
 </template>
 
 <script>
-import likesHandler from '../components/likesHandler.vue'
+import card from '../components/card.vue'
 
 export default {
   components: {
-    likesHandler
+    card
   }
 }
 </script>
 
 <style lang="scss">
-  .gag{
+  .card{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -29,14 +32,7 @@ export default {
     border: 1px solid black;
     background: white;
     margin: auto;
-    margin-top: 10vh;
-  }
-
-  .likesNComments{
-    border-top: 1px solid black;
-    &__likes{
-      border-right: 1px solid black;
-      width: 33%;
-    }
+    margin-top: 5vh;
+    margin-bottom: 5vh;
   }
 </style>
