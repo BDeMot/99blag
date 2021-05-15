@@ -4,15 +4,22 @@
     <form @submit.prevent="submit">
       <label for="pseudo"> Votre pseudonyme </label> <br>
       <input type="text" id="pseudo" name="pseudo" v-model="user.pseudo"> <br>
+      <div class="error" v-if="submitted && !$v.user.pseudo.required">Ce champs est requis.</div>
 
       <label for="email"> Votre email </label> <br>
       <input type="email" id="email" name="email" v-model="user.email"> <br>
+      <div class="error" v-if="submitted && !$v.user.email.required">Ce champs est requis.</div>
+      <div class="error" v-if="submitted && !$v.user.email.email">Veuillez entrer une adresse email valide.</div>
 
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="user.password"> <br>
+      <div class="error" v-if="submitted && !$v.user.password.required">Ce champs est requis.</div>
+      <div class="error" v-if="submitted && !$v.user.password.minLength">Doit comporter au moins 7 caractères.</div>
 
       <label for="confirmPassword"> Confirmez votre mot de passe </label> <br>
       <input type="password" id="confirmPassword" name="confirmPassword" v-model="user.confirmPassword"> <br>
+      <div class="error" v-if="submitted && !$v.user.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
+
       <input type="submit" value="Submit">
     </form>
   </div>
@@ -30,7 +37,8 @@ export default {
         email: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      submitted: false
     }
   },
   validations: {
@@ -43,8 +51,10 @@ export default {
   },
   methods: {
     submit () {
+      this.submitted = true
+      this.$v.$touch()
       if (this.$v.$invalid) {
-        console.log(this.$v.$invalid)
+        console.error('invalid inputs')
       } else {
         console.log(JSON.stringify(this.user))
       }
@@ -63,19 +73,23 @@ export default {
   margin-top: 10vh;
   padding: 20px;
   box-shadow: 5px 5px black;
+   & label{
+     display: inline-block;
+     margin-top: 20px;
+   }
   & input{
-    margin-bottom: 20px;
     width: 50%;
     min-width: 300px;
     height: 30px;
     border: 1px solid black;
-    &:last-of-type{
+    &[type=submit]{
       box-shadow: 2px 2px black;
       transition: all 100ms ease;
       width: 20%;
       max-width: 150px;
       background-color: white;
       border: 1px solid black;
+      margin-top: 40px;
       &:hover{
         box-shadow: 0 0 white;
       }
@@ -87,4 +101,11 @@ export default {
     }
   }
 }
+
+.error{
+  font-size: 13px;
+  font-style: italic;
+  color: red;
+}
+
 </style>
