@@ -9,7 +9,7 @@
       <UploadImages
       :max='1'
       uploadMsg="Cliquez ou glissez votre image ici"
-      @change="imageHandler()" /> <br>
+      @change="imageHandler" /> <br>
       <input type="submit" value="Submit">
     </form>
   </div>
@@ -39,6 +39,9 @@ export default {
     }
   },
   methods: {
+    imageHandler (file) {
+      this.image.file = file
+    },
     submit () {
       if (this.$v.$invalid) {
         console.log(this.$v.$invalid)

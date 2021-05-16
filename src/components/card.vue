@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-     .likesNComments{
+  .likesNComments{
     border-top: 1px solid black;
     display: flex;
     &__likes{
