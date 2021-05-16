@@ -3,9 +3,9 @@
     <h1>Envoyez votre image : </h1>
     <form @submit.prevent="submit">
       <label for="title"> Titre </label> <br>
-      <input type="text" id="title" name="title" v-model="image.title"> <br>
+      <input type="text" id="title" name="title" v-model="formImage.title"> <br>
 
-      <label for="image"> Choisissez votre image</label> <br>
+      <label for="UploadImages"> Choisissez votre image</label> <br>
       <UploadImages
       :max='1'
       uploadMsg="Cliquez ou glissez votre image ici"
@@ -26,27 +26,30 @@ export default {
   },
   data () {
     return {
-      image: {
+      formImage: {
         title: '',
         file: ''
       }
     }
   },
   validations: {
-    image: {
+    formImage: {
       title: { required },
       file: { required }
     }
   },
   methods: {
     imageHandler (file) {
-      this.image.file = file
+      this.formImage.file = file
     },
     submit () {
       if (this.$v.$invalid) {
         console.log(this.$v.$invalid)
       } else {
-        console.log(JSON.stringify(this.image))
+        const formData = new FormData()
+        formData.append('title', this.formImage.title)
+        formData.append('file', this.formImage.file)
+        console.log(formData)
       }
     }
   }
