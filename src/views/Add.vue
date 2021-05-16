@@ -6,7 +6,10 @@
       <input type="text" id="title" name="title" v-model="image.title"> <br>
 
       <label for="image"> Choisissez votre image</label> <br>
-      <input type="file" id="image" name="image" @change="selectedFile()"> <br>
+      <UploadImages
+      :max='1'
+      uploadMsg="Cliquez ou glissez votre image ici"
+      @change="imageHandler()" /> <br>
       <input type="submit" value="Submit">
     </form>
   </div>
@@ -14,9 +17,13 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators'
+import UploadImages from 'vue-upload-drop-images' // thx to yudax42 => https://github.com/yudax42/vue-upload-drop-images
 
 export default {
   name: 'app',
+  components: {
+    UploadImages
+  },
   data () {
     return {
       image: {
@@ -79,5 +86,10 @@ export default {
       }
     }
   }
+  .container{
+    width: 50%;
+    margin: auto;
+  }
 }
+
 </style>
