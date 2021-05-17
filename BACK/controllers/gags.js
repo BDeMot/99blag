@@ -21,3 +21,14 @@ exports.createGag = (req, res, next) => {
     }
   })
 }
+
+exports.getGags = (req, res, next) => {
+  connection.query('SELECT * FROM gags', function (error, results, fields) {
+    if (error) {
+      res.status(404).json({ error })
+    }
+    if (results) {
+      res.status(200).json({ message : results})
+    }
+  })
+}
