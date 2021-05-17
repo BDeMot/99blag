@@ -4,8 +4,12 @@
     <form @submit.prevent="submit">
       <label for="title"> Titre </label> <br>
       <input type="text" id="title" name="title" v-model="title"> <br>
-      <label for="image"> Choisissez votre image</label> <br>
-      <input type="file" name='image' @change="imageHandler">
+      <label for="image" id="imgBtn"> {{this.image.name || "Choisissez une image"}}</label> <br>
+      <input type="file" id="image" name='image' @change="imageHandler" hidden>
+      <div v-if="imgUrl" id="imgPreview">
+        <img :src="imgUrl" :alt="this.image.name"/>
+        <span id="delete" @click="deleteImg"> Supprimer cette image </span>
+      </div>
       <input type="submit" value="Submit">
     </form>
   </div>
@@ -20,7 +24,8 @@ export default {
   data () {
     return {
       title: '',
-      image: null
+      image: '',
+      imgUrl: null
     }
   },
   validations: {
@@ -28,12 +33,18 @@ export default {
     image: { required }
   },
   methods: {
-    imageHandler: function (event) {
+    imageHandler (event) {
       this.image = event.target.files[0]
+      this.imgUrl = URL.createObjectURL(this.image)
+    },
+    deleteImg () {
+      this.image = ''
+      this.imgUrl = null
+      this.$mount()
     },
     submit () {
       if (this.$v.$invalid) {
-        console.error('Data not valide ! One field or more is required.')
+        console.error('Data not valid ! One field or more is required.')
       } else {
         const formData = new FormData()
         formData.append('image', this.image)
@@ -64,14 +75,12 @@ export default {
   padding: 20px;
   box-shadow: 5px 5px black;
   & input{
+    padding: 0;
     margin-bottom: 20px;
     width: 60%;
     min-width: 300px;
     height: 30px;
     border: 1px solid black;
-    &[type=file]{
-      width: 300px;
-    }
     &:last-of-type{
       box-shadow: 2px 2px black;
       transition: all 400ms ease;
@@ -87,6 +96,48 @@ export default {
         background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
         background-size: 2.5px 2.5px;
       }
+    }
+  }
+}
+
+#imgBtn{
+  display: flex;
+  width: 60%;
+  min-width: 300px;
+  min-height: 30px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+  margin: auto;
+  cursor : pointer;
+  justify-content: center;
+  align-items: center;
+}
+
+#imgPreview{
+  margin: auto;
+  width: 60%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
+  background-size: 2.5px 2.5px;
+  & span {
+    display: flex;
+    height: 30px;
+    width: 100%;
+    background: white;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+  }
+  & img {
+    width: 100%;
+    transition: opacity 200ms ease;
+    &:hover{
+      opacity: .4;
     }
   }
 }
