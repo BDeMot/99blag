@@ -1,43 +1,108 @@
 <template>
-  <div class="likesNComments">
-      <div class="likesNComments__likes">
-        <likesHandler />
+  <div class="card">
+    <div class="card__title">
+      <h3> {{title}} </h3>
+    </div>
+    <div class="card__image">
+      <img :src="imageUrl" />
+    </div>
+    <div class="card__legend">
+      <p> Créé par {{ op }}, le {{ date }} </p>
+    </div>
+    <div class="card__commentsNLikes">
+      <div class="card__commentsNLikes--likes">
+        <div class="thumbsDown">
+          <svg width="32px" height="32px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 10.15625 6 C 8.746094 6 7.515625 6.996094 7.21875 8.375 L 5.0625 18.375 C 4.667969 20.222656 6.113281 22 8 22 L 13.75 22 L 13.5625 22.75 C 13.359375 22.90625 13.230469 22.972656 12.9375 23.375 C 12.46875 24.015625 12 25.007813 12 26.34375 C 12 27.769531 13.289063 29 14.90625 29 L 15.3125 29 L 15.625 28.71875 L 22.40625 22 L 27 22 L 27 6 Z M 10.15625 8 L 21 8 L 21 20.59375 L 14.59375 26.90625 C 14.171875 26.824219 14 26.652344 14 26.34375 C 14 25.441406 14.273438 24.882813 14.53125 24.53125 C 14.789063 24.179688 14.96875 24.09375 14.96875 24.09375 L 15.3125 23.90625 L 15.4375 23.5 L 16.03125 21.25 L 16.34375 20 L 8 20 C 7.339844 20 6.894531 19.425781 7.03125 18.78125 L 9.15625 8.78125 C 9.257813 8.3125 9.679688 8 10.15625 8 Z M 23 8 L 25 8 L 25 20 L 23 20 Z"/></svg>
+          <span class="nbOfDislikes"> {{ dislikes }} </span>
+        </div>
+        <div class="thumbsup">
+          <svg width="32px" height="32px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M 16.6875 3 L 16.375 3.28125 L 9.59375 10 L 5 10 L 5 26 L 21.84375 26 C 23.253906 26 24.484375 25.003906 24.78125 23.625 L 26.9375 13.625 C 27.332031 11.777344 25.886719 10 24 10 L 18.25 10 L 18.4375 9.25 C 18.640625 9.09375 18.769531 9.027344 19.0625 8.625 C 19.53125 7.984375 20 6.992188 20 5.65625 C 20 4.230469 18.710938 3 17.09375 3 Z M 17.40625 5.09375 C 17.828125 5.175781 18 5.347656 18 5.65625 C 18 6.558594 17.726563 7.117188 17.46875 7.46875 C 17.210938 7.820313 17.03125 7.90625 17.03125 7.90625 L 16.6875 8.09375 L 16.5625 8.5 L 15.96875 10.75 L 15.65625 12 L 24 12 C 24.660156 12 25.105469 12.574219 24.96875 13.21875 L 22.84375 23.21875 C 22.742188 23.6875 22.320313 24 21.84375 24 L 11 24 L 11 11.40625 Z M 7 12 L 9 12 L 9 24 L 7 24 Z"/></svg>
+          <span class="nbOfLikes"> {{ likes }} </span>
+        </div>
       </div>
-      <div class="likesNComments__comm">
-        <card-comments />
+      <div class="card__commentsNLikes--comments">
+        <p> 4 Commentaires </p>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-import likesHandler from './likesHandler.vue'
-import cardComments from './cardComments.vue'
 
 export default {
-  components: {
-    likesHandler,
-    cardComments
+  name: 'card',
+  props: {
+    title: {
+      type: String
+    },
+    imageUrl: {
+      type: String
+    },
+    likes: {
+      type: Number
+    },
+    dislikes: {
+      type: Number
+    },
+    op: {
+      type: String
+    },
+    date: {
+      type: String
+    }
   }
 }
 </script>
 
 <style lang="scss">
-  .likesNComments{
-    border-top: 1px solid black;
-    display: flex;
-    &__likes{
-      border-right: 1px solid black;
-      width: 32%;
-    }
-    &__comm{
-      width: 68%;
-      margin: 0px;
-      display: flex;
-      align-items: center;
-      &:hover{
-        background-image: radial-gradient(rgba(0, 0, 0, 0.618) .5px, transparent 0);
-        background-size: 2.5px 2.5px;
-      }
+.card{
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  width: 350px;
+  border: 1px solid black;
+  background: white;
+  margin: auto;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  &__image{
+    width: 100%;
+    & img {
+      object-fit: cover;
+      width: 100%;
     }
   }
+  &__title {
+    min-height: 30px;
+    display: flex;
+    background: white;
+    justify-content: center;
+    border-bottom: 1px solid black;
+    & h3 {
+      margin: 5px;
+    }
+  }
+  &__legend{
+    display: flex;
+    align-items: center;
+    height: 30px;
+    border-top: 1px solid black;
+    padding-left: 5px;
+  }
+  &__commentsNLikes {
+    display: flex;
+    border-top: 1px solid black;
+    &--likes{
+      display: flex;
+      border-right: 1px solid black;
+      width: 25%;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px;
+    }
+    &--comments {
+      width: 75%;
+    }
+  }
+}
 </style>

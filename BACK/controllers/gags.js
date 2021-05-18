@@ -28,7 +28,7 @@ exports.getGags = (req, res, next) => {
       res.status(404).json({ error })
     }
     if (results) {
-      res.status(200).json({ message : results})
+      res.status(200).json({ results })
     }
   })
 }

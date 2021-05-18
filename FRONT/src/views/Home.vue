@@ -1,14 +1,14 @@
 <template>
   <div>
-  <div class="card">
-    <card />
-  </div>
-  <div class="card">
-    <card />
-  </div>
-  <div class="card">
-    <card />
-  </div>
+    <card v-for="gag in $store.state.gags"
+    :title="gag.title"
+    :key="gag.id"
+    :imageUrl="gag.imageUrl"
+    :likes="gag.likes"
+    :dislikes="gag.dislikes"
+    :op="gag.op"
+    :date="gag.date"
+    />
   </div>
 </template>
 
@@ -18,21 +18,14 @@ import card from '../components/card.vue'
 export default {
   components: {
     card
+  },
+  mounted () {
+    this.$store.dispatch('getGags')
+  },
+  methods: {
   }
 }
 </script>
 
 <style lang="scss">
-  .card{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    width: 350px;
-    height: 50vh;
-    border: 1px solid black;
-    background: white;
-    margin: auto;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
-  }
 </style>
