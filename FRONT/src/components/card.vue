@@ -1,11 +1,13 @@
 <template>
   <div class="card">
-    <div class="card__title">
-      <h3> {{title}} </h3>
-    </div>
-    <div class="card__image">
-      <img :src="imageUrl" />
-    </div>
+    <router-link :to="{name: 'Gag', params: { id : id }} ">
+      <div class="card__title">
+        <h3> {{title}} </h3>
+      </div>
+      <div class="card__image">
+        <img :src="imageUrl" :alt="title" loading="lazy"/>
+      </div>
+    </router-link>
     <div class="card__legend">
       <p> Créé par {{ op }}, le {{ date }} </p>
     </div>
@@ -49,6 +51,9 @@ export default {
     },
     date: {
       type: String
+    },
+    id: {
+      type: Number
     }
   }
 }
@@ -59,16 +64,18 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  width: 350px;
+  max-width: 350px;
   border: 1px solid black;
   background: white;
   margin: auto;
   margin-top: 5vh;
   margin-bottom: 5vh;
+  & router-link{
+    text-decoration-line: none;
+  }
   &__image{
     width: 100%;
     & img {
-      object-fit: cover;
       width: 100%;
     }
   }
@@ -77,16 +84,16 @@ export default {
     display: flex;
     background: white;
     justify-content: center;
-    border-bottom: 1px solid black;
     & h3 {
       margin: 5px;
+      inline-size: 98%;
+      overflow-wrap: break-word;
     }
   }
   &__legend{
     display: flex;
     align-items: center;
     height: 30px;
-    border-top: 1px solid black;
     padding-left: 5px;
   }
   &__commentsNLikes {

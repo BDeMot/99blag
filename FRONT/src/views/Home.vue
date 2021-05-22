@@ -8,6 +8,7 @@
     :dislikes="gag.dislikes"
     :op="gag.op"
     :date="gag.date"
+    :id="gag.id"
     />
   </div>
 </template>
@@ -21,8 +22,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch('getGags')
-  },
-  methods: {
   }
 }
 </script>

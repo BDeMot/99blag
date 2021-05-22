@@ -50,6 +50,11 @@ body{
   background-position: -19px -19px;
 }
 
+a{
+  text-decoration: none;
+  color: black;
+}
+
 #nav {
   border-bottom: 1px solid black;
   display: flex;
