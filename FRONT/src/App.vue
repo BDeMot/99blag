@@ -60,7 +60,6 @@ a{
   display: flex;
   justify-content: space-between;
   background-color: white;
-  width: 100vw;
   min-width: 350px;
   position: sticky;
   top: 0;

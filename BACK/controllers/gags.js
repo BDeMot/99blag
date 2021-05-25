@@ -30,5 +30,9 @@ exports.getGags = (req, res, next) => {
     if (results) {
       res.status(200).json({ results })
     }
+
+    if(fields) {
+      console.log("someone connected")
+    }
   })
 }

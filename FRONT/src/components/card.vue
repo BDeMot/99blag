@@ -64,12 +64,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  max-width: 350px;
+  min-width: 300px;
+  max-width: 650px;
   border: 1px solid black;
   background: white;
   margin: auto;
   margin-top: 5vh;
-  margin-bottom: 5vh;
   & router-link{
     text-decoration-line: none;
   }

@@ -27,7 +27,7 @@ export default {
   border: 1px solid black;
   background: white;
   min-width: 60%;
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
   &__nameNDate{
     display: flex;

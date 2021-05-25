@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="oneGagCard">
     <card
-      class="oneGagCard"
       :title="gag.title"
       :key="gag.id"
       :imageUrl="gag.imageUrl"
@@ -14,6 +13,7 @@
     <comments />
     <comments />
     <comments />
+    <button @click="test">test</button>
   </div>
 </template>
 
@@ -32,14 +32,20 @@ export default {
     return {
       gag: this.$store.state.gags.find(gags => gags.id === this.$route.params.id)
     }
+  },
+  methods: {
+    test () {
+      console.log(Number(this.$route.params.id))
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .oneGagCard{
-  min-width: 60%;
-  max-width: 600px;
+  max-width: 650px;
+  margin: auto;
+  //max-width: 600px;
 }
 
 </style>
