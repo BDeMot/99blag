@@ -9,6 +9,7 @@
     :op="gag.op"
     :date="gag.date"
     :id="gag.id"
+    :nbOfComments="gag.nb_of_comments"
     />
   </div>
 </template>

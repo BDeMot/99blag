@@ -14,6 +14,25 @@ exports.addComment = (req, res, next) => {
       res.status(400).json({ error })
     }
     if (results) {
+      connection.query('SELECT * FROM comments WHERE on_gag = ?', 
+        req.body.commentedOn, 
+        function(error, results, fields) {
+          if(results){
+            const getNbOfComment = [results.length, req.body.commentedOn, ]
+            connection.query('UPDATE gags  SET nb_of_comments = ? WHERE id = ?', 
+              getNbOfComment,
+              function(error, results, fields) {
+            if(error){
+              console.log(error)
+            }
+            if(results){
+              console.log("ouais ça marche enfin!")
+            }
+              }
+            )
+          }
+        }
+      )
       res.status(201).json({ message : 'Commentaire ajouté !'})
     }
   })

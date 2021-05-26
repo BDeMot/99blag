@@ -9,6 +9,7 @@
       :dislikes="gag.dislikes"
       :op="gag.op"
       :date="gag.date"
+      :nbOfComments="gag.nb_of_comments"
       :id="gag.id"/>
     <post-comment />
     <comments

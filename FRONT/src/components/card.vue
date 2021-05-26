@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="card__commentsNLikes--comments">
-        <p> 4 Commentaires </p>
+        <p> {{nbOfComments}} Commentaires </p>
       </div>
     </div>
   </div>
@@ -53,6 +53,9 @@ export default {
       type: String
     },
     id: {
+      type: Number
+    },
+    nbOfComments: {
       type: Number
     }
   }
