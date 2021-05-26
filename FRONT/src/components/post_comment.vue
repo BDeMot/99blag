@@ -29,7 +29,7 @@ export default {
   methods: {
     submitComment () {
       axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
-        .then(res => console.log(res))
+        .then(location.reload())
         .catch(err => console.log(err))
     }
 

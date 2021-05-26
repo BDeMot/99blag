@@ -36,5 +36,10 @@ export default {
     width: 100%;
     height: 30px;
   }
+  & p {
+    text-align: left;
+    padding: 10px;
+    text-align: justify;
+  }
 }
 </style>
