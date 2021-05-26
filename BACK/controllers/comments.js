@@ -18,3 +18,16 @@ exports.addComment = (req, res, next) => {
     }
   })
 }
+
+exports.getComments = (req, res, next) => {
+  const gagId = JSON.parse(req.query.gagId)
+
+  connection.query('SELECT * FROM comments WHERE on_gag = ?', gagId, function(error, results, fields) {
+    if (error){
+      res.status(400).json({ error })
+    }
+    if (results) {
+      res.status(201).json({ results })
+    }
+  })
+}

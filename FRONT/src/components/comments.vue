@@ -1,9 +1,7 @@
 <template>
   <div class="comment">
-    <span class="comment__nameNDate" > Posté par {{ author }}, le {{ date }} </span>
-    <p> Ceci est un commentaire pour tester la mise en page Ceci est un commentaire
-      pour tester la mise en page Ceci est un commentaire pour tester la mise en page Cec
-      i est un commentaire pour tester la mise en page</p>
+    <span class="comment__nameNDate" > {{ author }}, le {{ date }} </span>
+    <p> {{ text }} </p>
   </div>
 </template>
 
@@ -15,6 +13,9 @@ export default {
       type: String
     },
     date: {
+      type: String
+    },
+    text: {
       type: String
     }
   }

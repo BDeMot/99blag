@@ -11,9 +11,12 @@
       :date="gag.date"
       :id="gag.id"/>
     <post-comment />
-    <comments />
-    <comments />
-    <comments />
+    <comments
+      v-for="comment in this.comments"
+      :key="comment.id"
+      :author="comment.user"
+      :date="comment.date"
+      :text="comment.comment"/>
   </div>
 </template>
 
@@ -21,6 +24,7 @@
 import card from '../components/card.vue'
 import comments from '../components/comments.vue'
 import postComment from '../components/post_comment.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -30,8 +34,16 @@ export default {
   },
   data () {
     return {
-      gag: this.$store.state.gags.find(gags => gags.id === Number(this.$route.params.id))
+      gag: this.$store.state.gags.find(gags => gags.id === Number(this.$route.params.id)),
+      comments: []
     }
+  },
+  mounted () {
+    axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+      .then(res => {
+        this.comments = res.data.results.reverse()
+      })
+      .catch(err => console.log(err))
   }
 }
 </script>
