@@ -4,7 +4,7 @@
     name="comment"
     placeholder="Ajoutez un commentaire..."
     ref="Comment"
-    v-model="comment"
+    v-model="comment.text"
     :min-height="30"
     :max-height="350"
     required></textarea-autosize>
@@ -13,18 +13,24 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'postComment',
   data () {
     return {
-      comment: '',
-      poster: '',
-      commentedOn: ''
+      comment: {
+        text: '',
+        user: 'Momo',
+        commentedOn: this.$route.params.id
+      }
     }
   },
   methods: {
     submitComment () {
-      console.log(this.comment)
+      axios.post('http://localhost:3000/api/comments', this.comment)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
   }

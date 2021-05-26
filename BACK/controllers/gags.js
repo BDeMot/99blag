@@ -2,16 +2,15 @@ const connection = require('../db')
 
 exports.createGag = (req, res, next) => {
 
-  const test = [
+  const gag = [
   req.body.title,
   `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   'Momo',
   3,
   4]
-  console.log(test)
 
   connection.query('INSERT INTO gags SET id = null, title = ?, imageUrl = ?, date = now(), op = ?, likes = ?, dislikes = ?',
-  test,
+  gag,
   function(error, results, fields) {
     if (error){
       res.status(400).json({ error })
