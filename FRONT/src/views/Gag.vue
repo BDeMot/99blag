@@ -1,7 +1,6 @@
 <template>
   <div class="oneGagCard">
     <card
-      v-if="$route.params.id"
       :title="gag.title"
       :key="gag.id"
       :imageUrl="gag.imageUrl"
@@ -35,14 +34,19 @@ export default {
   },
   data () {
     return {
-      gag: this.$store.state.gags.find(gags => gags.id === Number(this.$route.params.id)),
+      gag: [],
       comments: []
     }
   },
-  mounted () {
+  beforeCreate () {
     axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
       .then(res => {
         this.comments = res.data.results.reverse()
+      })
+      .catch(err => console.log(err))
+    axios.get('http://localhost:3000/api/gags/:id', { params: { gagId: Number(this.$route.params.id) } })
+      .then(res => {
+        this.gag = res.data.results[0]
       })
       .catch(err => console.log(err))
   }

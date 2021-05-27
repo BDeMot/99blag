@@ -29,8 +29,9 @@ export default {
   methods: {
     submitComment () {
       axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
-        .then(location.reload())
+        .then(this.$store.dispatch('getGags'))
         .catch(err => console.log(err))
+      setTimeout(function () { location.reload() }, 1000)
     }
 
   }

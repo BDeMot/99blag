@@ -6,5 +6,6 @@ const multer = require('../middleware/multer-config')
 
 router.post('/', multer, gagsCtrl.createGag)
 router.get('/', gagsCtrl.getGags)
+router.get('/:id', gagsCtrl.getOneGag)
 
 module.exports = router

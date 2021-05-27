@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <router-link :to="{name: 'Gag', params: { id : id }} ">
+    <router-link v-if="typeof id !=='undefined'" :to="{name: 'Gag', params: { id : id }} ">
       <div class="card__title">
         <h3> {{title}} </h3>
       </div>
