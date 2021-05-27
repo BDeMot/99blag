@@ -9,7 +9,7 @@ exports.createGag = (req, res, next) => {
   3,
   4]
 
-  connection.query('INSERT INTO gags SET id = null, title = ?, imageUrl = ?, date = now(), op = ?, likes = ?, dislikes = ?',
+  connection.query('INSERT INTO gags SET id = null, title = ?, imageUrl = ?, date = now(), op = ?, likes = ?, dislikes = ?, nb_of_comments = 0',
   gag,
   function(error, results, fields) {
     if (error){
