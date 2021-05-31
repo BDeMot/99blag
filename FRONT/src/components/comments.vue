@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     deleteComment () {
-      axios.delete('http://localhost:3000/api/gags/:id/comments/:id', { params: { commentId: this.$vnode.key } })
+      axios.delete('http://localhost:3000/api/gags/:id/comments/:id', { params: { commentId: this.$vnode.key, gagId: this.$route.params.id } })
         .then(this.$store.dispatch('getGags'))
         .catch(err => console.log(err))
       setTimeout(function () { location.reload() }, 1000)

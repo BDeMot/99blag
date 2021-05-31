@@ -13,25 +13,7 @@ exports.addComment = (req, res, next) => {
       res.status(400).json({ error })
     }
     if (results) {
-      connection.query('SELECT * FROM comments WHERE on_gag = ?', 
-        req.body.commentedOn, 
-        function(error, results, fields) {
-          if(results){
-            const getNbOfComment = [results.length, req.body.commentedOn, ]
-            connection.query('UPDATE gags  SET nb_of_comments = ? WHERE id = ?', 
-              getNbOfComment,
-              function(error, results, fields) {
-            if(error){
-              console.log(error)
-            }
-            if(results){
-              console.log("ouais ça marche enfin!")
-            }
-              }
-            )
-          }
-        }
-      )
+      commentsCounter(req.body.commentedOn)
       res.status(201).json({ message : 'Commentaire ajouté !'})
     }
   })
@@ -52,13 +34,35 @@ exports.getComments = (req, res, next) => {
 
 exports.deleteComment = (req, res, next) => {
   const commentId = req.query.commentId
+  const gagId = req.query.gagId
   connection.query(' DELETE FROM comments WHERE id = ?',
   commentId,
   function(error, results, fields) {
     if(results) {
+      commentsCounter(gagId)
       res.status(201).json({ message : "commentaire supprimé !"})
     }
   })
 }
 
-
+function commentsCounter (onGag) {
+  connection.query('SELECT * FROM comments WHERE on_gag = ?', 
+    onGag, 
+    function(error, results, fields) {
+      if(results){
+        const getNbOfComment = [results.length, onGag]
+        connection.query('UPDATE gags  SET nb_of_comments = ? WHERE id = ?', 
+          getNbOfComment,
+          function(error, results, fields) {
+            if(error){
+              console.log(error)
+            }
+            if(results){
+              console.log("ouais ça marche enfin!")
+            }
+              }
+            )
+          }
+        }
+      )
+}
