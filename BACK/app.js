@@ -3,8 +3,11 @@ const path = require('path')
 
 const gagsRoute = require('./routes/gags')
 const commentsRoute = require('./routes/comments')
+const usersRoute = require('./routes/users')
 
 const app = express()
+
+require('dotenv').config()
 
 app.use(( req, res, next ) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
@@ -19,5 +22,6 @@ app.use(express.json())
 app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use('/api/gags', gagsRoute)
 app.use('/api/gags/:id/comments', commentsRoute )
+app.use('/api/users', usersRoute)
 
 module.exports = app

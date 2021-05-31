@@ -24,10 +24,10 @@ exports.getComments = (req, res, next) => {
 
   connection.query('SELECT * FROM comments WHERE on_gag = ?', gagId, function(error, results, fields) {
     if (error){
-      res.status(400).json({ error })
+      res.status(404).json({ error })
     }
     if (results) {
-      res.status(201).json({ results })
+      res.status(200).json({ results })
     }
   })
 }
@@ -40,7 +40,7 @@ exports.deleteComment = (req, res, next) => {
   function(error, results, fields) {
     if(results) {
       commentsCounter(gagId)
-      res.status(201).json({ message : "commentaire supprimé !"})
+      res.status(200).json({ message : "commentaire supprimé !"})
     }
   })
 }
@@ -58,7 +58,7 @@ function commentsCounter (onGag) {
               console.log(error)
             }
             if(results){
-              console.log("ouais ça marche enfin!")
+              console.log("number of comments updated!")
             }
               }
             )

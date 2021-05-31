@@ -18,6 +18,9 @@ exports.createGag = (req, res, next) => {
     if (results) {
       res.status(201).json({ message : 'Gag ajouté à la base de donnée !'})
     }
+    if(fields) {
+      console.log("Gag added")
+    }
   })
 }
 
@@ -32,7 +35,7 @@ exports.getGags = (req, res, next) => {
       }
 
       if(fields) {
-        console.log("someone connected")
+        console.log("Sending all gags...")
       }
     }
   )
@@ -43,7 +46,15 @@ exports.getOneGag = (req, res, next) => {
   connection.query('SELECT * FROM gags WHERE id= ?', 
     gagId, 
     function (error, results, fields) {
-      res.status(200).json({ results })
+      if (error) {
+        res.status(404).json({ error })
+      }
+      if (results) {
+        res.status(200).json({ results })
+      }
+      if(fields) {
+        console.log("Sending one gag...")
+      }
     }
   )
 }

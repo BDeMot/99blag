@@ -27,6 +27,7 @@
 
 <script>
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -56,7 +57,17 @@ export default {
       if (this.$v.$invalid) {
         console.error('invalid inputs')
       } else {
-        console.log(JSON.stringify(this.user))
+        axios.post('http://localhost:3000/api/users', {
+          user: this.user,
+          email: this.email,
+          password: this.password
+        })
+          .then(res => {
+            const cookie = [res.data.userId, res.data.token]
+            this.$cookies.set('session', cookie)
+            setTimeout(function () { window.location.href = '/' }, 2000)
+          })
+          .catch(err => alert(err))
       }
     }
   }
