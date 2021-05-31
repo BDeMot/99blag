@@ -106,7 +106,7 @@ export default {
       display: flex;
       border-right: 1px solid black;
       width: 25%;
-      justify-content: space-between;
+      justify-content: space-around;
       align-items: center;
       padding: 5px;
     }

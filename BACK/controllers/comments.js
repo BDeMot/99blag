@@ -4,8 +4,7 @@ exports.addComment = (req, res, next) => {
   const comment = [
   req.body.user,
   req.body.text,
-  req.body.commentedOn 
-]
+  req.body.commentedOn ]
 
   connection.query('INSERT INTO comments SET id = null, user = ?, date = now(), comment = ?, on_gag = ?',
   comment,
@@ -50,3 +49,16 @@ exports.getComments = (req, res, next) => {
     }
   })
 }
+
+exports.deleteComment = (req, res, next) => {
+  const commentId = req.query.commentId
+  connection.query(' DELETE FROM comments WHERE id = ?',
+  commentId,
+  function(error, results, fields) {
+    if(results) {
+      res.status(201).json({ message : "commentaire supprimé !"})
+    }
+  })
+}
+
+
