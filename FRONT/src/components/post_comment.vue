@@ -21,7 +21,7 @@ export default {
     return {
       comment: {
         text: '',
-        user: 'Momo',
+        user: this.$cookies.get('session').split(',')[0],
         commentedOn: this.$route.params.id
       }
     }

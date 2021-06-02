@@ -5,27 +5,58 @@ const jwt = require('jsonwebtoken')
 exports.addUser = (req, res, next) => {
   const uuid = uuidv4();
   const user = [
-  uuid,
-  req.body.user.pseudo,
-  req.body.user.email,
-  req.body.user.password ]
+    uuid,
+    req.body.user.pseudo,
+    req.body.user.email,
+    req.body.user.password 
+  ]
 
-  console.log(uuidv4())
  connection.query('INSERT INTO users SET id = ?, user = ?, email = ?, password = ?',
   user,
   function(error, results, fields) {
     if (error){
-      res.status(400).json({ error })
+      res.status(403).json({ message : error.sqlMessage })
     }
     if (results) {
       res.status(201).json({ 
         message : 'Utilisateur créé !',
-        userId: uuid,
+        userPseudo: req.body.user.pseudo,
         token: jwt.sign(
           { userId: uuid },
           process.env.TOKEN_SECRET + new Date().getDate(),
-          { expiresIn: '2h' }
+          { expiresIn: '12h' }
         )})
     }
   })
+}
+
+exports.loginUser = (req, res, next) => {
+  const email = req.body.email
+  const password = req.body.password
+ 
+  connection.query('SELECT * FROM users WHERE email= ?', 
+    email, 
+    function (error, results, fields) {
+      if (error) {
+        res.status(404).json({ error })
+      }
+      if (results) {
+        if(results.length >= 1 && results[0].password === password) {
+          res.status(200).json({ 
+            message : 'Connexion établie !',
+            userPseudo: results[0].user,
+            token: jwt.sign(
+              { userId: results[0].id },
+              process.env.TOKEN_SECRET + new Date().getDate(),
+              { expiresIn: '12h' }
+            )})
+        } else {
+          res.status(401).json({ message : "L'email ou le mot de passe sont erronés." })
+        }
+      }
+      if(fields) {
+        console.log("User querying a connexion")
+      }
+    }
+  )
 }

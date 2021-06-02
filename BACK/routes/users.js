@@ -3,8 +3,8 @@ const router = express.Router()
 
 const usersCtrl = require('../controllers/users')
 
-router.post('/', usersCtrl.addUser)
-// router.get('/', commentsCtrl.getComments)
+router.post('/signup', usersCtrl.addUser)
+router.post('/login', usersCtrl.loginUser)
 // router.delete('/:id', commentsCtrl.deleteComment)
 
 module.exports = router

@@ -53,6 +53,7 @@ export default {
         const formData = new FormData()
         formData.append('image', this.image)
         formData.append('title', this.title)
+        formData.append('op', this.$cookies.get('session').split(',')[0])
         axios({
           method: 'post',
           url: 'http://localhost:3000/api/gags',

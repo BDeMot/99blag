@@ -5,7 +5,7 @@ exports.createGag = (req, res, next) => {
   const gag = [
   req.body.title,
   `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-  'Momo',
+  req.body.op,
   3,
   4]
 

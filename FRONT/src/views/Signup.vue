@@ -5,11 +5,13 @@
       <label for="pseudo"> Votre pseudonyme </label> <br>
       <input type="text" id="pseudo" name="pseudo" v-model="user.pseudo"> <br>
       <div class="error" v-if="submitted && !$v.user.pseudo.required">Ce champs est requis.</div>
+      <div class="error" v-if="duplicatedUser">Ce pseudonyme est déjà prit.</div>
 
       <label for="email"> Votre email </label> <br>
       <input type="email" id="email" name="email" v-model="user.email"> <br>
       <div class="error" v-if="submitted && !$v.user.email.required">Ce champs est requis.</div>
       <div class="error" v-if="submitted && !$v.user.email.email">Veuillez entrer une adresse email valide.</div>
+      <div class="error" v-if="duplicatedEmail">Cet email est déjà utilisé.</div>
 
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="user.password"> <br>
@@ -39,7 +41,9 @@ export default {
         password: '',
         confirmPassword: ''
       },
-      submitted: false
+      submitted: false,
+      duplicatedUser: false,
+      duplicatedEmail: false
     }
   },
   validations: {
@@ -57,17 +61,24 @@ export default {
       if (this.$v.$invalid) {
         console.error('invalid inputs')
       } else {
-        axios.post('http://localhost:3000/api/users', {
+        axios.post('http://localhost:3000/api/users/signup', {
           user: this.user,
           email: this.email,
           password: this.password
         })
           .then(res => {
-            const cookie = [res.data.userId, res.data.token]
+            const cookie = [res.data.user, res.data.token]
             this.$cookies.set('session', cookie)
             setTimeout(function () { window.location.href = '/' }, 2000)
           })
-          .catch(err => alert(err))
+          .catch(err => {
+            const errorMessage = err.response.data.message
+            if (errorMessage.includes('users.user')) {
+              this.duplicatedUser = true
+            } else if (errorMessage.includes('users.email')) {
+              this.duplicatedEmail = true
+            }
+          })
       }
     }
   }

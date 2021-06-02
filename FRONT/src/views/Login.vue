@@ -8,12 +8,16 @@
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="user.password"> <br>
       <input type="submit" value="Submit">
+      <div v-if="unauthorized" class="unauthorized">
+        <p> L'email ou le mot de passe ne sont pas valides.</p>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators'
+import axios from 'axios'
 
 export default {
   name: 'app',
@@ -22,7 +26,8 @@ export default {
       user: {
         email: '',
         password: ''
-      }
+      },
+      unauthorized: false
     }
   },
   validations: {
@@ -33,11 +38,19 @@ export default {
   },
   methods: {
     submit () {
-      if (this.$v.$invalid) {
-        console.log(this.$v.$dirty)
-      } else {
-        console.log(JSON.stringify(this.user))
-      }
+      axios.post('http://localhost:3000/api/users/login', {
+        email: this.user.email,
+        password: this.user.password
+      })
+        .then(res => {
+          const cookie = [res.data.userPseudo, res.data.token]
+          this.$cookies.set('session', cookie)
+          setTimeout(function () { window.location.href = '/' }, 500)
+        })
+        .catch(err => {
+          this.unauthorized = true
+          console.error(err)
+        })
     }
   }
 }
@@ -75,6 +88,11 @@ export default {
         background-size: 2.5px 2.5px;
       }
     }
+  }
+
+  .unauthorized{
+    border: 1px solid red;
+    color: red;
   }
 }
 </style>
