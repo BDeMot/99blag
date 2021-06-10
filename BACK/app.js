@@ -4,6 +4,7 @@ const path = require('path')
 const gagsRoute = require('./routes/gags')
 const commentsRoute = require('./routes/comments')
 const usersRoute = require('./routes/users')
+const likesRoute = require('./routes/likes')
 
 const app = express()
 
@@ -23,5 +24,6 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use('/api/gags', gagsRoute)
 app.use('/api/gags/:id/comments', commentsRoute )
 app.use('/api/users', usersRoute)
+app.use('/api/gags/:id/likes', likesRoute)
 
 module.exports = app

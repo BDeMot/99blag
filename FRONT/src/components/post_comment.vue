@@ -21,7 +21,7 @@ export default {
     return {
       comment: {
         text: '',
-        user: this.$cookies.get('session').split(',')[0],
+        user: this.$cookies.isKey('session') ? this.$cookies.get('session').split(',')[0] : '',
         commentedOn: this.$route.params.id
       }
     }
@@ -33,7 +33,6 @@ export default {
         .catch(err => console.log(err))
       setTimeout(function () { location.reload() }, 1000)
     }
-
   }
 }
 </script>

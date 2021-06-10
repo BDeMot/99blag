@@ -7,7 +7,7 @@
     :likes="gag.likes"
     :dislikes="gag.dislikes"
     :op="gag.op"
-    :date="gag.date"
+    :date="$moment(gag.date).fromNow()"
     :id="gag.id"
     :nbOfComments="gag.nb_of_comments"
     />

@@ -7,7 +7,7 @@
       :likes="gag.likes"
       :dislikes="gag.dislikes"
       :op="gag.op"
-      :date="gag.date"
+      :date="$moment(gag.date).fromNow()"
       :nbOfComments="gag.nb_of_comments"
       :id="gag.id"/>
     <post-comment />
@@ -15,7 +15,7 @@
       v-for="comment in this.comments"
       :key="comment.id"
       :author="comment.user"
-      :date="comment.date"
+      :date="$moment(comment.date).fromNow()"
       :text="comment.comment"/>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
 .oneGagCard{
   max-width: 650px;
   margin: auto;
-  //max-width: 600px;
 }
 
 </style>

@@ -11,6 +11,12 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(VueTextareaAutosize)
 Vue.use(VueCookies)
+const moment = require('moment')
+require('moment/locale/fr')
+
+Vue.use(require('vue-moment'), {
+  moment
+})
 
 new Vue({
   router,
