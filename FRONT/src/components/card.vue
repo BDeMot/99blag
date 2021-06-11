@@ -79,7 +79,7 @@ export default {
     axios.get('http://localhost:3000/api/gags/:id/likes',
       { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
       .then(res => {
-        this.like = res.data.results[0]?.likes ?? 0
+        this.like = res.data.results[0]?.likeType ?? 0
       })
       .catch(err => console.log(err))
   }

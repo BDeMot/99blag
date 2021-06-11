@@ -2,31 +2,28 @@ const connection = require('../db')
 const jwt = require('jsonwebtoken')
 
 exports.setLikes = (req, res, next) => {
-  // request is an array where : 
-  // [0] is user token, 
-  // [1] is the gag id, 
-  // [2] is the like or dislike ( 1 or -1)
   const decodedToken = jwt.verify(req.body[0], process.env.TOKEN_SECRET + new Date().getDate())
+  const user = decodedToken.userId
+  const gag = req.body[1]
+  const likeType = req.body[2]
+  const sql = `INSERT INTO like_dislike (user_id_pk, gag_id_pk, likeType) 
+    VALUES ('${user}', ${gag}, ${likeType}) 
+    ON DUPLICATE KEY UPDATE likeType = ${likeType}`
 
-  const likes = [
-    decodedToken.userId,
-    req.body[1],
-    req.body[2] 
-  ]
-
-  connection.query('INSERT INTO likes SET id = null, user = ?, gag = ?, likes = ?',
-  likes,
-  function(error, results, fields) {
-    if (error){
-      res.status(400).json({ error })
+  connection.query(sql,
+    function(error, results, fields) {
+      if (error){
+        res.status(400).json({ error })
+      }
+      if (results) {
+        console.log(results)
+        res.status(201).json({ results })
+      }
+      if (fields) {
+        console.log("Likes prit en compte")
+      }
     }
-    if (results) {
-      res.status(201).json({ message : 'Likes mis à jour'})
-    }
-    if (fields) {
-      console.log("Likes prit en compte")
-    }
-  })
+  )
 }
 
 exports.likeOrDislike = (req, res, next) => {
@@ -37,7 +34,7 @@ exports.likeOrDislike = (req, res, next) => {
     req.query.gag
   ]
 
-  connection.query('SELECT likes FROM likes WHERE user = ? AND gag = ?',
+  connection.query('SELECT likeType FROM like_dislike WHERE user_id_pk = ? AND gag_id_pk = ?',
   likeOrDislike,
   function(error, results, fields) {
     if (error){
