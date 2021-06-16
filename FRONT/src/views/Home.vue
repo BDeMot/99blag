@@ -10,6 +10,7 @@
     :date="$moment(gag.date).fromNow()"
     :id="gag.id"
     :nbOfComments="gag.nb_of_comments"
+    @updateThis="updateThisHere"
     />
   </div>
 </template>
@@ -23,6 +24,13 @@ export default {
   },
   mounted () {
     this.$store.dispatch('getGags')
+  },
+  methods: {
+    updateThisHere () {
+      setTimeout(() => {
+        this.$store.dispatch('getGags') // remember, an arrow function does not have its own "this". Otherwise, "this" would refer to the Set Tmeout function.
+      }, 500)
+    }
   }
 }
 </script>

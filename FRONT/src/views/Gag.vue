@@ -9,7 +9,8 @@
       :op="gag.op"
       :date="$moment(gag.date).fromNow()"
       :nbOfComments="gag.nb_of_comments"
-      :id="gag.id"/>
+      :id="gag.id"
+       @updateThis="updateThisHere"/>
     <post-comment />
     <comments
       v-for="comment in this.comments"
@@ -49,6 +50,16 @@ export default {
         this.gag = res.data.results[0]
       })
       .catch(err => console.log(err))
+  },
+  methods: {
+    updateThisHere () {
+      setTimeout(() => {
+        axios.get('http://localhost:3000/api/gags/:id', { params: { gagId: Number(this.$route.params.id) } })
+          .then(res => {
+            this.gag = res.data.results[0]
+          }) // remember, an arrow function does not have its own "this". Otherwise, "this" would refer to the Set Tmeout function.
+      }, 500)
+    }
   }
 }
 </script>

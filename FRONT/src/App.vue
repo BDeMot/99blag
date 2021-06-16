@@ -13,7 +13,7 @@
     <router-view/>
   </div>
 </template>
-// TODO: verify if cookies are deleted once they expired
+// TODO: verify if cookies are deleted once they expired while the tab was still open
 <script>
 export default {
   computed: {

@@ -67,12 +67,20 @@ export default {
     }
   },
   methods: {
-    likeOrDislike (like) {
-      this.like = like
-      const likeDislike = [this.$cookies.get('session').split(',')[1], this.$vnode.key, like]
-      axios.post('http://localhost:3000/api/gags/:id/likes', likeDislike)
-        .then()
-        .catch(err => console.log(err))
+    likeOrDislike (likeType) {
+      if (this.like === likeType) {
+        axios.delete('http://localhost:3000/api/gags/:id/likes',
+          { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
+          .then(this.$emit('updateThis'))
+          .catch(err => console.log(err))
+        this.like = 0
+      } else {
+        const likeDislike = [this.$cookies.get('session').split(',')[1], this.$vnode.key, likeType]
+        axios.post('http://localhost:3000/api/gags/:id/likes', likeDislike)
+          .then(this.$emit('updateThis'))
+          .catch(err => console.log(err))
+        this.like = likeType
+      }
     }
   },
   beforeCreate () {

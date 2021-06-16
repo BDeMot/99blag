@@ -7,8 +7,8 @@ exports.setLikes = (req, res, next) => {
   const gag = req.body[1]
   const likeType = req.body[2]
   const sql = `INSERT INTO like_dislike (user_id_pk, gag_id_pk, likeType) 
-    VALUES ('${user}', ${gag}, ${likeType}) 
-    ON DUPLICATE KEY UPDATE likeType = ${likeType}`
+  VALUES ('${user}', ${gag}, ${likeType}) 
+  ON DUPLICATE KEY UPDATE likeType = ${likeType}`
 
   connection.query(sql,
     function(error, results, fields) {
@@ -16,19 +16,18 @@ exports.setLikes = (req, res, next) => {
         res.status(400).json({ error })
       }
       if (results) {
-        console.log(results)
+        likesCounter(gag)
         res.status(201).json({ results })
       }
       if (fields) {
         console.log("Likes prit en compte")
       }
     }
-  )
-}
+    )
+  }
 
 exports.likeOrDislike = (req, res, next) => {
   const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET + new Date().getDate())
-
   const likeOrDislike = [
     decodedToken.userId,
     req.query.gag
@@ -45,4 +44,49 @@ exports.likeOrDislike = (req, res, next) => {
     }
   }
   )
+}
+
+exports.deleteLike = (req, res, next) => {
+  const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET + new Date().getDate())
+  const likeOrDislike = [
+    decodedToken.userId,
+    req.query.gag
+  ]
+  connection.query('DELETE FROM like_dislike WHERE user_id_pk = ? AND gag_id_pk = ?',
+  likeOrDislike,
+  function(error, results, fields) {
+    if (error){
+      res.status(404).json({ error })
+    }
+    if (results) {
+      likesCounter(Number(req.query.gag))
+      res.status(200).json({ results })
+    }
+  }
+  )
+}
+
+function likesCounter(onGag) {
+  connection.query('SELECT likeType FROM like_dislike WHERE gag_id_pk = ?', 
+  onGag, 
+  function(error, results, fields) {
+      if(results){
+        const getNbOfLikes = results.filter(like => like.likeType === 1)
+        const getNbOfDislikes = results.filter(like => like.likeType === -1)
+        const nbOfLikes = [ getNbOfLikes.length, getNbOfDislikes.length, onGag]
+
+        connection.query('UPDATE gags SET likes = ?, dislikes = ? WHERE id = ?', 
+          nbOfLikes,
+          function(error, results, fields) {
+            if(error){
+              console.log(error)
+            }
+            if(results){
+              console.log("likes and dislikes updated!")
+            }
+              }
+            )
+          }
+        }
+      )
 }
