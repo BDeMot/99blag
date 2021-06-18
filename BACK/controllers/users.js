@@ -45,6 +45,7 @@ exports.loginUser = (req, res, next) => {
           res.status(200).json({ 
             message : 'Connexion établie !',
             userPseudo: results[0].user,
+            privilege: results[0].privilege,
             token: jwt.sign(
               { userId: results[0].id },
               process.env.TOKEN_SECRET + new Date().getDate(),

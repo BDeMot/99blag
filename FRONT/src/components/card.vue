@@ -84,12 +84,14 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get('http://localhost:3000/api/gags/:id/likes',
-      { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
-      .then(res => {
-        this.like = res.data.results[0]?.likeType ?? 0
-      })
-      .catch(err => console.log(err))
+    if (this.$cookies.isKey('session')) {
+      axios.get('http://localhost:3000/api/gags/:id/likes',
+        { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
+        .then(res => {
+          this.like = res.data.results[0]?.likeType ?? 0
+        })
+        .catch(err => console.log(err))
+    }
   }
 }
 </script>

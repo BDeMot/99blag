@@ -1,5 +1,5 @@
 <template>
-<form class="postComment" @submit.prevent>
+<form v-if="this.$cookies.isKey('session')" class="postComment" @submit.prevent>
   <textarea-autosize
     name="comment"
     placeholder="Ajoutez un commentaire..."

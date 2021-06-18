@@ -43,7 +43,7 @@ export default {
         password: this.user.password
       })
         .then(res => {
-          const cookie = [res.data.userPseudo, res.data.token]
+          const cookie = [res.data.userPseudo, res.data.token, res.data.privilege]
           this.$cookies.set('session', cookie)
           setTimeout(function () { window.location.href = '/' }, 500)
         })
