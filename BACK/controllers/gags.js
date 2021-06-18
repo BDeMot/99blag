@@ -7,8 +7,8 @@ exports.createGag = (req, res, next) => {
   req.body.title,
   `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   req.body.op,
-  3,
-  4]
+  0,
+  0]
 
   connection.query('INSERT INTO gags SET id = null, title = ?, imageUrl = ?, date = now(), op = ?, likes = ?, dislikes = ?, nb_of_comments = 0',
   gag,

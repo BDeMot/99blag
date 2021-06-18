@@ -3,12 +3,12 @@
     <router-link v-if="typeof id !=='undefined'" :to="{name: 'Gag', params: { id : id }} ">
       <div class="card__title">
         <h3> {{title}} </h3>
-        <svg @click="deleteGag" v-if="this.userHavePrivilege = 1" aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <svg @click="deleteGag" v-if="this.userHavePrivilege === 1" aria-hidden="true" focusable="false" data-prefix="far" data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
           <path fill="black" d="M268 416h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12zM432 80h-82.41l-34-56.7A48 48 0 0 0 274.41 0H173.59a48 48 0 0 0-41.16 23.3L98.41 80H16A16 16 0 0 0 0 96v16a16 16 0 0 0 16 16h16v336a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128h16a16 16 0 0 0 16-16V96a16 16 0 0 0-16-16zM171.84 50.91A6 6 0 0 1 177 48h94a6 6 0 0 1 5.15 2.91L293.61 80H154.39zM368 464H80V128h288zm-212-48h24a12 12 0 0 0 12-12V188a12 12 0 0 0-12-12h-24a12 12 0 0 0-12 12v216a12 12 0 0 0 12 12z"></path>
         </svg>
       </div>
       <div class="card__image">
-        <img :src="imageUrl" :alt="title" loading="lazy"/>  <!-- TODO: check if lazy loading works properly -->
+        <img :src="imageUrl" :alt="title"/>  <!-- TODO: make components lazy loading -->
       </div>
     </router-link>
     <div class="card__legend">
@@ -89,15 +89,14 @@ export default {
     deleteGag () {
       axios.delete('http://localhost:3000/api/gags/:id', { params: { gagId: this.$vnode.key } })
         .then(
-          setTimeout(() => { window.location.href = '/' }, 500)
+          window.location.href = '/'
         )
         .catch(err => console.log(err))
     }
   },
-  mounted () {
+  beforeMount () {
     if (this.$cookies.isKey('session')) {
-      if (this.$cookies.get('session').split(',')[2] === '1' ||
-      this.$cookies.get('session').split(',')[0] === this.author) {
+      if (this.$cookies.get('session').split(',')[2] === '1' || this.$cookies.get('session').split(',')[0] === this.op) {
         this.userHavePrivilege = 1
       }
       axios.get('http://localhost:3000/api/gags/:id/likes',
@@ -137,7 +136,7 @@ export default {
     background: white;
     justify-content: center;
     & svg {
-      height: 15px;
+      width: 15px;
       margin: 5px;
       &:hover path{
         fill: red;
@@ -147,6 +146,7 @@ export default {
       margin: 5px;
       inline-size: 98%;
       overflow-wrap: break-word;
+      width: 90%;
     }
   }
   &__legend{
