@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Signup from '../views/Signup.vue'
-import Login from '../views/Login.vue'
-import Add from '../views/Add.vue'
-import Gag from '../views/Gag.vue'
 
 Vue.use(VueRouter)
 
@@ -12,27 +7,27 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: () => import('../views/Signup.vue')
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/add',
     name: 'Add',
-    component: Add
+    component: () => import('../views/Add.vue')
   },
   {
     path: '/gags/:id',
     name: 'Gag',
-    component: Gag
+    component: () => import('../views/Gag.vue')
   }
 ]
 
