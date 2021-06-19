@@ -8,7 +8,7 @@
         </svg>
       </div>
       <div class="card__image">
-        <img :src="imageUrl" :alt="title"/>  <!-- TODO: make components lazy loading -->
+        <img v-lazy="imageUrl" :alt="title"/>
       </div>
     </router-link>
     <div class="card__legend">
