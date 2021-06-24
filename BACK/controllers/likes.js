@@ -6,7 +6,7 @@ exports.setLikes = (req, res, next) => {
   const user = decodedToken.userId
   const gag = req.body[1]
   const likeType = req.body[2]
-  const sql = `INSERT INTO like_dislike (user_id_pk, gag_id_pk, likeType) 
+  const sql = `INSERT INTO like_dislike (user_id_fk, gag_id_fk, likeType) 
   VALUES ('${user}', ${gag}, ${likeType}) 
   ON DUPLICATE KEY UPDATE likeType = ${likeType}`
 
@@ -33,7 +33,7 @@ exports.likeOrDislike = (req, res, next) => {
     req.query.gag
   ]
 
-  connection.query('SELECT likeType FROM like_dislike WHERE user_id_pk = ? AND gag_id_pk = ?',
+  connection.query('SELECT likeType FROM like_dislike WHERE user_id_fk = ? AND gag_id_fk = ?',
   likeOrDislike,
   function(error, results, fields) {
     if (error){
@@ -52,7 +52,7 @@ exports.deleteLike = (req, res, next) => {
     decodedToken.userId,
     req.query.gag
   ]
-  connection.query('DELETE FROM like_dislike WHERE user_id_pk = ? AND gag_id_pk = ?',
+  connection.query('DELETE FROM like_dislike WHERE user_id_fk = ? AND gag_id_fk = ?',
   likeOrDislike,
   function(error, results, fields) {
     if (error){
@@ -67,7 +67,7 @@ exports.deleteLike = (req, res, next) => {
 }
 
 function likesCounter(onGag) {
-  connection.query('SELECT likeType FROM like_dislike WHERE gag_id_pk = ?', 
+  connection.query('SELECT likeType FROM like_dislike WHERE gag_id_fk = ?', 
   onGag, 
   function(error, results, fields) {
       if(results){
