@@ -87,7 +87,8 @@ export default {
       }
     },
     deleteGag () {
-      axios.delete('http://localhost:3000/api/gags/:id', { params: { gagId: this.$vnode.key } })
+      axios.delete('http://localhost:3000/api/gags/:id',
+        { params: { user: this.$cookies.get('session').split(',')[1], gagId: this.$vnode.key, author: this.op } })
         .then(
           window.location.href = '/'
         )
