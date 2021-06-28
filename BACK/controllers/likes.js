@@ -2,7 +2,7 @@ const connection = require('../db')
 const jwt = require('jsonwebtoken')
 
 exports.setLikes = (req, res, next) => {
-  const decodedToken = jwt.verify(req.body[0], process.env.TOKEN_SECRET + new Date().getDate())
+  const decodedToken = jwt.verify(req.body[0], process.env.TOKEN_SECRET)
   const user = decodedToken.userId
   const gag = req.body[1]
   const likeType = req.body[2]
@@ -27,7 +27,7 @@ exports.setLikes = (req, res, next) => {
   }
 
 exports.likeOrDislike = (req, res, next) => {
-  const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET + new Date().getDate())
+  const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET)
   const likeOrDislike = [
     decodedToken.userId,
     req.query.gag
@@ -47,7 +47,7 @@ exports.likeOrDislike = (req, res, next) => {
 }
 
 exports.deleteLike = (req, res, next) => {
-  const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET + new Date().getDate())
+  const decodedToken = jwt.verify(req.query.user, process.env.TOKEN_SECRET)
   const likeOrDislike = [
     decodedToken.userId,
     req.query.gag

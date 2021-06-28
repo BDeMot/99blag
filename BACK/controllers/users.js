@@ -23,7 +23,7 @@ exports.addUser = (req, res, next) => {
         userPseudo: req.body.user.pseudo,
         token: jwt.sign(
           { userId: uuid },
-          process.env.TOKEN_SECRET + new Date().getDate(), // TODO: remove the useless date to avoid a bug
+          process.env.TOKEN_SECRET,
           { expiresIn: '12h' }
         )})
     }
@@ -48,7 +48,7 @@ exports.loginUser = (req, res, next) => {
             privilege: results[0].privilege,
             token: jwt.sign(
               { userId: results[0].id },
-              process.env.TOKEN_SECRET + new Date().getDate(),
+              process.env.TOKEN_SECRET,
               { expiresIn: '12h' }
             )})
         } else {
