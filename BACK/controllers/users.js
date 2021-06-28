@@ -11,7 +11,7 @@ exports.addUser = (req, res, next) => {
     req.body.user.password 
   ]
 
- connection.query('INSERT INTO users SET id = ?, user = ?, email = ?, password = ?',
+  connection.query('INSERT INTO users SET id = ?, user = ?, email = ?, password = ?',
   user,
   function(error, results, fields) {
     if (error){
@@ -23,7 +23,7 @@ exports.addUser = (req, res, next) => {
         userPseudo: req.body.user.pseudo,
         token: jwt.sign(
           { userId: uuid },
-          process.env.TOKEN_SECRET + new Date().getDate(),
+          process.env.TOKEN_SECRET + new Date().getDate(), // TODO: remove the useless date to avoid a bug
           { expiresIn: '12h' }
         )})
     }

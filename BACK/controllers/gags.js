@@ -72,7 +72,7 @@ exports.deleteGag = (req, res, next) => {
     if (results) {
       const filename = results[0].imageUrl.split('/images/')[1]
       fs.unlink(`images/${filename}`, () => {
-        connection.query(`DELETE FROM gags WHERE id = "${gagId}"`, // TODO add delete cascade on table likes
+        connection.query(`DELETE FROM gags WHERE id = "${gagId}"`,
         function (error, results, fields) {
           if(error) {
             console.log(error)
