@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   const userId = decodedToken.userId
   
   connection.query('SELECT * from users WHERE id = ?',
-  userId,
+    userId,
     function(error, results, fields) {
       if (error){
         res.status(400).json({ error })
@@ -18,9 +18,6 @@ module.exports = (req, res, next) => {
         } else {
           res.status(401).json({ message : 'You are not authorized to do this!' })
         }
-      }
-      if(fields) {
-        console.log("Deleting...")
       }
     }
   )

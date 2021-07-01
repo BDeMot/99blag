@@ -8,12 +8,13 @@
       <label for="title"> Titre </label> <br>
       <input type="text" id="title" name="title" v-model="title"> <br>
       <label for="image" id="imgBtn"> {{this.image.name || "Choisissez une image"}}</label> <br>
-      <input type="file" id="image" name='image' @change="imageHandler" hidden>
+      <input type="file" id="image" name='image' accept='image/*' @change="imageHandler" hidden>
+      <p class="size_alert" v-if="!validSize">La taille du fichier ne doit pas excéder 500 Ko.<p>
       <div v-if="imgUrl" id="imgPreview">
         <img :src="imgUrl" :alt="this.image.name" @click="deleteImg"/>
         <span id="delete" @click="deleteImg"> Supprimer cette image </span>
       </div>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Submit" :class="{ invalidSubmit: this.$v.$invalid, submit: !this.$v.$invalid }">
     </form>
   </div>
 </template>
@@ -29,7 +30,8 @@ export default {
       title: '',
       image: '',
       imgUrl: null,
-      success: false
+      success: false,
+      validSize: true
     }
   },
   validations: {
@@ -38,8 +40,14 @@ export default {
   },
   methods: {
     imageHandler (event) {
-      this.image = event.target.files[0]
-      this.imgUrl = URL.createObjectURL(this.image)
+      const imageSent = event.target.files[0]
+      if (imageSent.size < 500000) {
+        this.image = imageSent
+        this.imgUrl = URL.createObjectURL(imageSent)
+        this.validSize = true
+      } else {
+        this.validSize = false
+      }
     },
     deleteImg () {
       this.image = ''
@@ -88,7 +96,12 @@ export default {
     min-width: 300px;
     height: 30px;
     border: 1px solid black;
-    &:last-of-type{
+    &.invalidSubmit{
+      box-shadow: 0;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
+      background-size: 2.5px 2.5px;
+    }
+    &.submit{
       box-shadow: 2px 2px black;
       transition: all 400ms ease;
       width: 20%;
@@ -156,5 +169,11 @@ export default {
   font-weight: bold;
   background-image: radial-gradient(rgba(30, 217, 52, 0.93) .5px, transparent 0);
   background-size: 2.5px 2.5px;
+}
+
+.size_alert{
+  color: red;
+  font-size: .8em;
+  margin: 0;
 }
 </style>
