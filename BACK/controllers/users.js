@@ -1,20 +1,22 @@
 const connection = require('../db')
+const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken')
 
 exports.addUser = (req, res, next) => {
+  const hash = bcrypt.hashSync(req.body.user.password, 10)
   const uuid = uuidv4();
   const user = [
     uuid,
     req.body.user.pseudo,
     req.body.user.email,
-    req.body.user.password 
+    hash
   ]
 
   connection.query('INSERT INTO users SET id = ?, user = ?, email = ?, password = ?',
   user,
   function(error, results, fields) {
-    if (error){
+    if (error) {
       res.status(403).json({ message : error.sqlMessage })
     }
     if (results) {
@@ -32,16 +34,17 @@ exports.addUser = (req, res, next) => {
 
 exports.loginUser = (req, res, next) => {
   const email = req.body.email
-  const password = req.body.password
- 
+
   connection.query('SELECT * FROM users WHERE email= ?', 
     email, 
     function (error, results, fields) {
       if (error) {
-        res.status(404).json({ error })
+        res.status(404).json({ message : error.sqlMessage })
       }
       if (results) {
-        if(results.length >= 1 && results[0].password === password) {
+        const correctPassword = bcrypt.compare(req.body.password, results[0].password)
+
+        if(results.length >= 1 && correctPassword) {
           res.status(200).json({ 
             message : 'Connexion établie !',
             userPseudo: results[0].user,
@@ -52,6 +55,7 @@ exports.loginUser = (req, res, next) => {
               { expiresIn: '12h' }
             )})
         } else {
+          console.log(hash)
           res.status(401).json({ message : "L'email ou le mot de passe sont erronés." })
         }
       }
