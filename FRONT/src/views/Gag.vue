@@ -13,6 +13,7 @@
        @updateThis="updateThisHere"/>
     <post-comment />
     <comments
+      class="comments"
       v-for="comment in this.comments"
       :key="comment.id"
       :author="comment.user"
@@ -68,6 +69,16 @@ export default {
 .oneGagCard{
   max-width: 650px;
   margin: auto;
+}
+
+.comments{
+ border: 1px solid black;
+ border-bottom: 0;
+ overflow: hidden;
+ &:last-child{
+   margin-bottom: 3vh;
+   border-bottom: 1px solid black;
+ }
 }
 
 </style>

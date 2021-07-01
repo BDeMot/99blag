@@ -6,6 +6,8 @@
       <input type="text" id="pseudo" name="pseudo" v-model="user.pseudo"> <br>
       <div class="error" v-if="submitted && !$v.user.pseudo.required">Ce champs est requis.</div>
       <div class="error" v-if="duplicatedUser">Ce pseudonyme est déjà prit.</div>
+      <div class="error" v-if="submitted && !$v.user.pseudo.minLength">Doit comporter au moins 3 caractères.</div>
+      <div class="error" v-if="submitted && !$v.user.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
 
       <label for="email"> Votre email </label> <br>
       <input type="email" id="email" name="email" v-model="user.email"> <br>
@@ -28,7 +30,7 @@
 </template>
 
 <script>
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, email, minLength, sameAs, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
 
 export default {
@@ -48,7 +50,7 @@ export default {
   },
   validations: {
     user: {
-      pseudo: { required },
+      pseudo: { required, minLength: minLength(2), alphaNum },
       email: { required, email },
       password: { required, minLength: minLength(7) },
       confirmPassword: { sameAsPassword: sameAs('password') }

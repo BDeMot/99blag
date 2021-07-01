@@ -8,7 +8,7 @@
     :min-height="30"
     :max-height="350"
     required></textarea-autosize>
-  <button @click="submitComment">Postez votre commentaire</button>
+  <button @click="submitComment" class="submitComment" :disabled="this.comment.text.length < 3 ? true : false">Postez votre commentaire</button>
 </form>
 </template>
 
@@ -28,10 +28,14 @@ export default {
   },
   methods: {
     submitComment () {
-      axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
-        .then(this.$store.dispatch('getGags'))
-        .catch(err => console.log(err))
-      setTimeout(function () { location.reload() }, 1000)
+      if (this.comment.text.length > 3) {
+        axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
+          .then(this.$store.dispatch('getGags'))
+          .catch(err => console.log(err))
+        setTimeout(function () { location.reload() }, 1000)
+      } else {
+        console.error('nooo no no!')
+      }
     }
   }
 }
@@ -41,9 +45,8 @@ export default {
 .postComment{
   width: 100%;
   margin-bottom: 30px;
-  & button{
+  & .submitComment{
     margin-bottom : 30px;
-    box-shadow: 2px 2px black;
     background-color: white;
     border: 1px solid black;
     width: 50%;
@@ -51,6 +54,14 @@ export default {
     margin: auto;
     height: 30px;
     transition: all 400ms ease;
+    &:enabled{
+      box-shadow: 2px 2px black;
+    }
+    &:disabled{
+      box-shadow: 0;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
+      background-size: 2.5px 2.5px;
+    }
     &:hover{
         box-shadow: 0 0 white;
       }
@@ -62,9 +73,8 @@ export default {
   }
 }
 textarea{
-  width: 99%;
+  width: 98%;
   border: 1px solid black;
-  border-top: 0;
 }
 
 </style>

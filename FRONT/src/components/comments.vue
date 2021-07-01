@@ -63,7 +63,6 @@ export default {
 <style lang="scss">
 .comment{
   font-family: 'Times New Roman', Times, serif;
-  border: 1px solid black;
   background: white;
   min-width: 60%;
   max-width: 650px;

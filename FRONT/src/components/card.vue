@@ -121,7 +121,8 @@ export default {
   border: 1px solid black;
   background: white;
   margin: auto;
-  margin-top: 5vh;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
   & router-link{
     text-decoration-line: none;
   }
