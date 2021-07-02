@@ -1,5 +1,7 @@
 const express = require('express')
 const path = require('path')
+const helmet = require('helmet')
+const limits = require('limits')
 
 const gagsRoute = require('./routes/gags')
 const commentsRoute = require('./routes/comments')
@@ -10,10 +12,24 @@ const app = express()
 
 require('dotenv').config()
 
+const limits_config = {
+  enable: true,
+  file_uploads: true,
+  post_max_size: 500000,
+  global_timeout: 500 
+}
+app.use(limits(limits_config));
+
+app.use(helmet())
+app.use(helmet({ crossOriginEmbedderPolicy: true }))
+app.use(helmet({ crossOriginOpenerPolicy: true }))
+app.use(helmet({ crossOriginResourcePolicy: { policy: "same-site" } }))
+
 app.use(( req, res, next ) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Origin, Content, Accept, Content-Type, Authorization')
+  res.header("X-powered-by", "My little fingers")
   next()
 })
 

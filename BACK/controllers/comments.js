@@ -1,9 +1,12 @@
 const connection = require('../database/db')
 
+
 exports.addComment = (req, res, next) => {
+  const commentText = req.body.text.replace(/[\\#$~`*<>{}]/g, ".")
+
   const comment = [
   req.body.user,
-  req.body.text,
+  commentText,
   req.body.commentedOn ]
 
   connection.query('INSERT INTO comments SET id = null, user = ?, date = now(), comment = ?, on_gag = ?',
@@ -60,9 +63,9 @@ function commentsCounter (onGag) {
             if(results){
               console.log("number of comments updated!")
             }
-              }
-            )
           }
-        }
-      )
+        )
+      }
+    }
+  )
 }
