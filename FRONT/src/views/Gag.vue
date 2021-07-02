@@ -10,7 +10,7 @@
       :date="$moment(gag.date).fromNow()"
       :nbOfComments="gag.nb_of_comments"
       :id="gag.id"
-       @updateThis="updateThisHere"/>
+      @updateThis="updateThisHere"/>
     <post-comment />
     <comments
       class="comments"

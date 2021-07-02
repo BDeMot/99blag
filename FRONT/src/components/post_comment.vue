@@ -34,7 +34,7 @@ export default {
           .catch(err => console.log(err))
         setTimeout(function () { location.reload() }, 1000)
       } else {
-        console.error('nooo no no!')
+        console.error('Comment text must be at least 3 caracters long.')
       }
     }
   }

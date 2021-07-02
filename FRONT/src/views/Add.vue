@@ -84,7 +84,7 @@ export default {
   background-color: white;
   border: 1px solid black;
   width: 50%;
-  min-width: 300px;
+  min-width: 280px;
   margin: auto;
   margin-top: 10vh;
   padding: 20px;
@@ -93,7 +93,7 @@ export default {
     padding: 0;
     margin-bottom: 20px;
     width: 60%;
-    min-width: 300px;
+    min-width: 280px;
     height: 30px;
     border: 1px solid black;
     &.invalidSubmit{
@@ -123,7 +123,7 @@ export default {
 #imgBtn{
   display: flex;
   width: 60%;
-  min-width: 300px;
+  min-width: 280px;
   min-height: 30px;
   border: 1px solid black;
   margin-bottom: 20px;

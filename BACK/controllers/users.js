@@ -8,7 +8,6 @@ const schema = new passwordValidator()
 
 schema
 .is().min(7)
-.has().not().spaces()
 
 exports.addUser = (req, res, next) => {
   if(!schema.validate(req.body.user.password)) {

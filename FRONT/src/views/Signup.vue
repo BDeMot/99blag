@@ -92,7 +92,7 @@ export default {
   background-color: white;
   border: 1px solid black;
   width: 50%;
-  min-width: 300px;
+  min-width: 280px;
   margin: auto;
   margin-top: 10vh;
   padding: 20px;
@@ -103,7 +103,7 @@ export default {
    }
   & input{
     width: 50%;
-    min-width: 300px;
+    min-width: 280px;
     height: 30px;
     border: 1px solid black;
     &[type=submit]{
