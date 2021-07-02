@@ -1,6 +1,8 @@
 <template>
   <div>
-    <card v-for="gag in $store.state.gags"
+    <card
+    class="cards"
+    v-for="gag in $store.state.gags"
     :title="gag.title"
     :key="gag.id"
     :imageUrl="gag.imageUrl"
@@ -36,4 +38,8 @@ export default {
 </script>
 
 <style lang="scss">
+.cards{
+  min-width: 300px;
+  max-width: 450px;
+}
 </style>

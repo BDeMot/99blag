@@ -117,7 +117,7 @@ export default {
   flex-direction: column;
   align-items: space-between;
   min-width: 300px;
-  max-width: 650px;
+  max-width: 550px;
   border: 1px solid black;
   background: white;
   margin: auto;
