@@ -7,7 +7,7 @@
 
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="user.password"> <br>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Envoyez" :disabled="this.$v.$invalid">
       <div v-if="unauthorized" class="unauthorized">
         <p> L'email ou le mot de passe ne sont pas valides.</p>
       </div>
@@ -73,12 +73,18 @@ export default {
     height: 30px;
     border: 1px solid black;
     &:last-of-type{
-      box-shadow: 2px 2px black;
       transition: all 100ms ease;
       width: 20%;
       max-width: 150px;
       background-color: white;
       border: 1px solid black;
+      &:enabled{
+        box-shadow: 2px 2px black;
+      }
+      &:disabled{
+        background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
+        background-size: 2.5px 2.5px;
+      }
       &:hover{
         box-shadow: 0 0 white;
       }

@@ -4,27 +4,24 @@
     <form @submit.prevent="submit">
       <label for="pseudo"> Votre pseudonyme </label> <br>
       <input type="text" id="pseudo" name="pseudo" v-model="user.pseudo"> <br>
-      <div class="error" v-if="submitted && !$v.user.pseudo.required">Ce champs est requis.</div>
       <div class="error" v-if="duplicatedUser">Ce pseudonyme est déjà prit.</div>
       <div class="error" v-if="submitted && !$v.user.pseudo.minLength">Doit comporter au moins 3 caractères.</div>
       <div class="error" v-if="submitted && !$v.user.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
 
       <label for="email"> Votre email </label> <br>
       <input type="email" id="email" name="email" v-model="user.email"> <br>
-      <div class="error" v-if="submitted && !$v.user.email.required">Ce champs est requis.</div>
       <div class="error" v-if="submitted && !$v.user.email.email">Veuillez entrer une adresse email valide.</div>
       <div class="error" v-if="duplicatedEmail">Cet email est déjà utilisé.</div>
 
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="user.password"> <br>
-      <div class="error" v-if="submitted && !$v.user.password.required">Ce champs est requis.</div>
       <div class="error" v-if="submitted && !$v.user.password.minLength">Doit comporter au moins 7 caractères.</div>
 
       <label for="confirmPassword"> Confirmez votre mot de passe </label> <br>
       <input type="password" id="confirmPassword" name="confirmPassword" v-model="user.confirmPassword"> <br>
       <div class="error" v-if="submitted && !$v.user.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
 
-      <input type="submit" value="Submit">
+      <input type="submit" value="Envoyez" :disabled="this.$v.$invalid">
     </form>
   </div>
 </template>
@@ -107,13 +104,19 @@ export default {
     height: 30px;
     border: 1px solid black;
     &[type=submit]{
-      box-shadow: 2px 2px black;
       transition: all 100ms ease;
       width: 20%;
       max-width: 150px;
       background-color: white;
       border: 1px solid black;
       margin-top: 40px;
+      &:disabled{
+        background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
+        background-size: 2.5px 2.5px;
+      }
+      &:enabled{
+        box-shadow: 2px 2px black;
+      }
       &:hover{
         box-shadow: 0 0 white;
       }
