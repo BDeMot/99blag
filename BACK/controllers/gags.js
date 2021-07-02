@@ -1,4 +1,4 @@
-const connection = require('../db')
+const connection = require('../database/db')
 const fs = require('file-system')
 
 exports.createGag = (req, res, next) => {

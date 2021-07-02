@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const connection = require('../db')
+const connection = require('../database/db')
 
 module.exports = (req, res, next) => {
 	const decodedToken =  jwt.verify(req.query.user, process.env.TOKEN_SECRET)

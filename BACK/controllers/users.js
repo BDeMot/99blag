@@ -1,4 +1,4 @@
-const connection = require('../db')
+const connection = require('../database/db')
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken')

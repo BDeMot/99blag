@@ -1,4 +1,4 @@
-const connection = require('../db')
+const connection = require('../database/db')
 const jwt = require('jsonwebtoken')
 
 exports.setLikes = (req, res, next) => {

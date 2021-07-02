@@ -1,4 +1,4 @@
-const connection = require('../db')
+const connection = require('../database/db')
 
 exports.addComment = (req, res, next) => {
   const comment = [
