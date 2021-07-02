@@ -24,7 +24,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-*.jpg
-*.png
-*.gif
-*.bmp
+# *.jpg
+# *.png
+# *.gif
+# *.bmp
