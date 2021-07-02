@@ -91,7 +91,7 @@ a{
   height: 30px;
   text-decoration: none;
   padding-top: 7px;
-  margin: 10px;
+  margin: 2px;
   color: black;
   &__logout{
     background: white;
@@ -104,15 +104,12 @@ a{
   }
   &__signup{
     background: white;
-    margin-right: 20px;
   }
   &__login{
     background: white;
   }
   &__addImage{
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    height: 37px;
     padding: 0;
     font-size: 30px;
     max-width: 350px;
@@ -126,8 +123,7 @@ a{
       border: 2px solid white;
       background-color: white;
       position: relative;
-      top: 10px;
-
+      top: 4px;
     }
   }
   &:active{
