@@ -3,23 +3,23 @@
     <h1>Inscrivez-vous : </h1>
     <form @submit.prevent="submit">
       <label for="pseudo"> Votre pseudonyme </label> <br>
-      <input type="text" id="pseudo" name="pseudo" v-model="user.pseudo"> <br>
+      <input type="text" id="pseudo" name="pseudo" v-model="pseudo"> <br>
       <div class="error" v-if="duplicatedUser">Ce pseudonyme est déjà prit.</div>
-      <div class="error" v-if="submitted && !$v.user.pseudo.minLength">Doit comporter au moins 3 caractères.</div>
-      <div class="error" v-if="submitted && !$v.user.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
+      <div class="error" v-if="submitted && !$v.pseudo.minLength">Doit comporter au moins 3 caractères.</div>
+      <div class="error" v-if="submitted && !$v.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
 
       <label for="email"> Votre email </label> <br>
-      <input type="email" id="email" name="email" v-model="user.email"> <br>
-      <div class="error" v-if="submitted && !$v.user.email.email">Veuillez entrer une adresse email valide.</div>
+      <input type="email" id="email" name="email" v-model="email"> <br>
+      <div class="error" v-if="submitted && !$v.email.email">Veuillez entrer une adresse email valide.</div>
       <div class="error" v-if="duplicatedEmail">Cet email est déjà utilisé.</div>
 
       <label for="password"> Votre mot de passe </label> <br>
-      <input type="password" id="password" name="password" v-model="user.password"> <br>
-      <div class="error" v-if="submitted && !$v.user.password.minLength">Doit comporter au moins 7 caractères.</div>
+      <input type="password" id="password" name="password" v-model="password"> <br>
+      <div class="error" v-if="submitted && !$v.password.minLength">Doit comporter au moins 7 caractères.</div>
 
       <label for="confirmPassword"> Confirmez votre mot de passe </label> <br>
-      <input type="password" id="confirmPassword" name="confirmPassword" v-model="user.confirmPassword"> <br>
-      <div class="error" v-if="submitted && !$v.user.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
+      <input type="password" id="confirmPassword" name="confirmPassword" v-model="confirmPassword"> <br>
+      <div class="error" v-if="submitted && !$v.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
 
       <input type="submit" value="Envoyez" :disabled="this.$v.$invalid">
     </form>
@@ -34,24 +34,20 @@ export default {
   name: 'app',
   data () {
     return {
-      user: {
-        pseudo: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      },
+      pseudo: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
       submitted: false,
       duplicatedUser: false,
       duplicatedEmail: false
     }
   },
   validations: {
-    user: {
-      pseudo: { required, minLength: minLength(2), alphaNum },
-      email: { required, email },
-      password: { required, minLength: minLength(7) },
-      confirmPassword: { sameAsPassword: sameAs('password') }
-    }
+    pseudo: { required, minLength: minLength(2), alphaNum },
+    email: { required, email },
+    password: { required, minLength: minLength(7) },
+    confirmPassword: { sameAsPassword: sameAs('password') }
   },
   methods: {
     submit () {
@@ -61,12 +57,13 @@ export default {
         console.error('invalid inputs')
       } else {
         axios.post('http://localhost:3000/api/users/signup', {
-          user: this.user,
+          pseudo: this.pseudo,
           email: this.email,
           password: this.password
         })
           .then(res => {
-            const cookie = [res.data.user, res.data.token]
+            console.log(res)
+            const cookie = [res.data.userPseudo, res.data.token]
             this.$cookies.set('session', cookie)
             setTimeout(function () { window.location.href = '/' }, 2000)
           })

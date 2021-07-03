@@ -10,15 +10,15 @@ schema
 .is().min(7)
 
 exports.addUser = (req, res, next) => {
-  if(!schema.validate(req.body.user.password)) {
-    res.status(422).json({ error : ' Format non valide :' + schema.validate(req.body.user.password, { list : true }) })
+  if(!schema.validate(req.body.password)) {
+    res.status(422).json({ error : ' Format non valide :' + schema.validate(req.body.password, { list : true }) })
   } else {
-    const hash = bcrypt.hashSync(req.body.user.password, 10)
+    const hash = bcrypt.hashSync(req.body.password, 10)
     const uuid = uuidv4();
     const user = [
       uuid,
-      req.body.user.pseudo,
-      req.body.user.email,
+      req.body.pseudo,
+      req.body.email,
       hash
     ]
 
@@ -31,7 +31,7 @@ exports.addUser = (req, res, next) => {
       if (results) {
         res.status(201).json({ 
           message : 'Utilisateur créé !',
-          userPseudo: req.body.user.pseudo,
+          userPseudo: req.body.pseudo,
           token: jwt.sign(
             { userId: uuid },
             process.env.TOKEN_SECRET,

@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     submitComment () {
-      if (this.comment.text.length > 3) {
+      if (this.comment.text.length > 2) {
         axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
           .then(this.$store.dispatch('getGags'))
           .catch(err => console.log(err))
