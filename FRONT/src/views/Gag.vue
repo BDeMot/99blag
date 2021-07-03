@@ -14,7 +14,7 @@
     <post-comment />
     <comments
       class="comments"
-      v-for="comment in this.comments"
+      v-for="comment in comments"
       :key="comment.id"
       :author="comment.user"
       :date="$moment(comment.date).fromNow()"
@@ -46,11 +46,9 @@ export default {
         this.comments = res.data.results.reverse()
       })
       .catch(err => console.log(err))
-    axios.get('http://localhost:3000/api/gags/:id', { params: { gagId: Number(this.$route.params.id) } })
-      .then(res => {
-        this.gag = res.data.results[0]
-      })
-      .catch(err => console.log(err))
+  },
+  created () {
+    this.gag = this.$store.state.gags.find(gag => gag.id === this.$route.params.id)
   },
   methods: {
     updateThisHere () {
