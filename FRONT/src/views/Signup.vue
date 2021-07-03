@@ -5,21 +5,21 @@
       <label for="pseudo"> Votre pseudonyme </label> <br>
       <input type="text" id="pseudo" name="pseudo" v-model="pseudo"> <br>
       <div class="error" v-if="duplicatedUser">Ce pseudonyme est déjà prit.</div>
-      <div class="error" v-if="submitted && !$v.pseudo.minLength">Doit comporter au moins 3 caractères.</div>
-      <div class="error" v-if="submitted && !$v.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
+      <div class="error" v-if="!$v.pseudo.minLength">Doit comporter au moins 2 caractères.</div>
+      <div class="error" v-if="!$v.pseudo.alphaNum">Ne peut contenir que des caractères alphanumériques.</div>
 
       <label for="email"> Votre email </label> <br>
       <input type="email" id="email" name="email" v-model="email"> <br>
-      <div class="error" v-if="submitted && !$v.email.email">Veuillez entrer une adresse email valide.</div>
+      <div class="error" v-if="!$v.email.email">Veuillez entrer une adresse email valide.</div>
       <div class="error" v-if="duplicatedEmail">Cet email est déjà utilisé.</div>
 
       <label for="password"> Votre mot de passe </label> <br>
       <input type="password" id="password" name="password" v-model="password"> <br>
-      <div class="error" v-if="submitted && !$v.password.minLength">Doit comporter au moins 7 caractères.</div>
+      <div class="error" v-if="!$v.password.minLength">Doit comporter au moins 7 caractères.</div>
 
       <label for="confirmPassword"> Confirmez votre mot de passe </label> <br>
       <input type="password" id="confirmPassword" name="confirmPassword" v-model="confirmPassword"> <br>
-      <div class="error" v-if="submitted && !$v.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
+      <div class="error" v-if="!$v.confirmPassword.sameAsPassword">Les 2 mots de passe doivent être identiques.</div>
 
       <input type="submit" value="Envoyez" :disabled="this.$v.$invalid">
     </form>
@@ -38,7 +38,6 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
-      submitted: false,
       duplicatedUser: false,
       duplicatedEmail: false
     }
@@ -51,7 +50,6 @@ export default {
   },
   methods: {
     submit () {
-      this.submitted = true
       this.$v.$touch()
       if (this.$v.$invalid) {
         console.error('invalid inputs')
