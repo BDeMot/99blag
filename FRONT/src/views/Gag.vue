@@ -11,14 +11,16 @@
       :nbOfComments="gag.nb_of_comments"
       :id="gag.id"
       @updateThis="updateThisHere"/>
-    <post-comment />
+    <post-comment @updateComments="updateComments" />
     <comments
       class="comments"
       v-for="comment in comments"
       :key="comment.id"
       :author="comment.user"
       :date="$moment(comment.date).fromNow()"
-      :text="comment.comment"/>
+      :text="comment.comment"
+      @updateComments="updateComments"
+      />
   </div>
 </template>
 
@@ -58,6 +60,15 @@ export default {
             this.gag = res.data.results[0]
           }) // remember, an arrow function does not have its own "this". Otherwise, "this" would refer to the Set Tmeout function.
       }, 500)
+    },
+    updateComments (addOrRemove) {
+      addOrRemove === 'add' ? this.gag.nb_of_comments++ : this.gag.nb_of_comments--
+      axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+        .then(res => {
+          this.comments = res.data.results.reverse()
+          this.$store.dispatch('getGags')
+        })
+        .catch(err => console.log(err))
     }
   }
 }

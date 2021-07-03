@@ -30,9 +30,8 @@ export default {
     submitComment () {
       if (this.comment.text.length > 2) {
         axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
-          .then(this.$store.dispatch('getGags'))
+          .then(this.$emit('updateComments', 'add'))
           .catch(err => console.log(err))
-        setTimeout(function () { location.reload() }, 1000)
       } else {
         console.error('Comment text must be at least 3 caracters long.')
       }

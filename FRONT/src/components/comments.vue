@@ -52,9 +52,8 @@ export default {
           }
         }
       )
-        .then(this.$store.dispatch('getGags'))
+        .then(this.$emit('updateComments', 'remove'))
         .catch(err => console.log(err))
-      setTimeout(function () { location.reload() }, 500)
     }
   }
 }
