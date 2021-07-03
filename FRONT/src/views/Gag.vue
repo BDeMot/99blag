@@ -48,7 +48,7 @@ export default {
       .catch(err => console.log(err))
   },
   created () {
-    this.gag = this.$store.state.gags.find(gag => gag.id === this.$route.params.id)
+    this.gag = this.$store.state.gags.find(gag => gag.id === Number(this.$route.params.id))
   },
   methods: {
     updateThisHere () {
