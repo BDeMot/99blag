@@ -2,16 +2,14 @@ const connection = require('../database/db')
 const bcrypt = require('bcrypt')
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken')
-const passwordValidator = require('password-validator')
 
-const schema = new passwordValidator()
-
-schema
-.is().min(7)
+const regexAlphanum = !/[A-Za-z0-9]/g
+const regexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 exports.addUser = (req, res, next) => {
-  if(!schema.validate(req.body.password)) {
-    res.status(422).json({ error : ' Format non valide :' + schema.validate(req.body.password, { list : true }) })
+
+  if(req.body.password.length < 7 || !regexAlphanum.test(req.body.pseudo) || !regexEmail.test(req.body.email)) {
+    res.status(422).json({ error : 'invalid input format' })
   } else {
     const hash = bcrypt.hashSync(req.body.password, 10)
     const uuid = uuidv4();
@@ -43,8 +41,8 @@ exports.addUser = (req, res, next) => {
 }
 
 exports.loginUser = (req, res, next) => {
-  if(!schema.validate(req.body.password)) {
-    res.status(422).json({ error : ' Format non valide :' + schema.validate(req.body.password, { list : true }) })
+  if (req.body.password.length < 7 || !regexEmail.test(req.body.email)) {
+    res.status(422).json({ error : 'invalid input format' })
   } else {
     const email = req.body.email
 

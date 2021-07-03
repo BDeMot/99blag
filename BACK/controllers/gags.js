@@ -2,9 +2,9 @@ const connection = require('../database/db')
 const fs = require('file-system')
 
 exports.createGag = (req, res, next) => {
-
+  const gagTitle = req.body.title.replace(/[\\#$~`*<>{}]/g, " ")
   const gag = [
-  req.body.title,
+  gagTitle,
   `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
   req.body.op,
   0,
