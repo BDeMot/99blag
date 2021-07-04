@@ -44,7 +44,7 @@ export default {
       })
         .then(res => {
           const cookie = [res.data.userPseudo, res.data.token, res.data.privilege]
-          this.$cookies.set('session', cookie)
+          this.$cookies.set('session', cookie, 60 * 60 * 12)
           setTimeout(function () { window.location.href = '/' }, 500)
         })
         .catch(err => {

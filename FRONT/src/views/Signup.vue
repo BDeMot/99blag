@@ -62,7 +62,7 @@ export default {
           .then(res => {
             console.log(res)
             const cookie = [res.data.userPseudo, res.data.token]
-            this.$cookies.set('session', cookie)
+            this.$cookies.set('session', cookie, 60 * 60 * 12)
             setTimeout(function () { window.location.href = '/' }, 2000)
           })
           .catch(err => {
