@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     deleteComment () {
-      axios.delete('http://localhost:3000/api/gags/:id/comments/:id',
+      axios.delete('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments/:id',
         {
           params: {
             commentId: this.$vnode.key,

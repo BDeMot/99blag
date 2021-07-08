@@ -64,7 +64,7 @@ export default {
         formData.append('op', this.$cookies.get('session').split(',')[0])
         axios({
           method: 'post',
-          url: 'http://localhost:3000/api/gags',
+          url: 'https://ninety-nine-blag.herokuapp.com/api/gags',
           data: formData,
           headers: { 'Content-Type': 'multipart/form-data' }
         })

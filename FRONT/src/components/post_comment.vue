@@ -29,7 +29,7 @@ export default {
   methods: {
     submitComment () {
       if (this.comment.text.length > 2) {
-        axios.post('http://localhost:3000/api/gags/:id/comments', this.comment)
+        axios.post('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', this.comment)
           .then(this.$emit('updateComments', 'add'))
           .catch(err => console.log(err))
       } else {

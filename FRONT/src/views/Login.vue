@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     submit () {
-      axios.post('http://localhost:3000/api/users/login', {
+      axios.post('https://ninety-nine-blag.herokuapp.com/api/users/login', {
         email: this.user.email,
         password: this.user.password
       })

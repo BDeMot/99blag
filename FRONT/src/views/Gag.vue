@@ -43,7 +43,7 @@ export default {
     }
   },
   beforeCreate () {
-    axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+    axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
       .then(res => {
         this.comments = res.data.results.reverse()
       })
@@ -55,7 +55,7 @@ export default {
   methods: {
     updateThisHere () {
       setTimeout(() => {
-        axios.get('http://localhost:3000/api/gags/:id', { params: { gagId: Number(this.$route.params.id) } })
+        axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id', { params: { gagId: Number(this.$route.params.id) } })
           .then(res => {
             this.gag = res.data.results[0]
           }) // remember, an arrow function does not have its own "this". Otherwise, "this" would refer to the Set Tmeout function.
@@ -63,7 +63,7 @@ export default {
     },
     updateComments (addOrRemove) {
       addOrRemove === 'add' ? this.gag.nb_of_comments++ : this.gag.nb_of_comments--
-      axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+      axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
         .then(res => {
           this.comments = res.data.results.reverse()
           this.$store.dispatch('getGags')

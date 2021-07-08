@@ -74,14 +74,14 @@ export default {
     likeOrDislike (likeType) {
       if (this.$cookies.isKey('session')) {
         if (this.like === likeType) {
-          axios.delete('http://localhost:3000/api/gags/:id/likes',
+          axios.delete('https://ninety-nine-blag.herokuapp.com/api/gags/:id/likes',
             { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
             .then(this.$emit('updateThis'))
             .catch(err => console.log(err))
           this.like = 0
         } else {
           const likeDislike = [this.$cookies.get('session').split(',')[1], this.$vnode.key, likeType]
-          axios.post('http://localhost:3000/api/gags/:id/likes', likeDislike)
+          axios.post('https://ninety-nine-blag.herokuapp.com/api/gags/:id/likes', likeDislike)
             .then(this.$emit('updateThis'))
             .catch(err => console.log(err))
           this.like = likeType
@@ -89,7 +89,7 @@ export default {
       }
     },
     deleteGag () {
-      axios.delete('http://localhost:3000/api/gags/:id',
+      axios.delete('https://ninety-nine-blag.herokuapp.com/api/gags/:id',
         { params: { user: this.$cookies.get('session').split(',')[1], gagId: this.$vnode.key, author: this.op } })
         .then(
           window.location.href = '/'
@@ -102,7 +102,7 @@ export default {
       if (this.$cookies.get('session').split(',')[2] === '1' || this.$cookies.get('session').split(',')[0] === this.op) {
         this.userHavePrivilege = 1
       }
-      axios.get('http://localhost:3000/api/gags/:id/likes',
+      axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/likes',
         { params: { user: this.$cookies.get('session').split(',')[1], gag: this.$vnode.key } })
         .then(res => {
           this.like = res.data.results[0]?.likeType ?? 0

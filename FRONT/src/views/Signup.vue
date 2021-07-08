@@ -54,7 +54,7 @@ export default {
       if (this.$v.$invalid) {
         console.error('invalid inputs')
       } else {
-        axios.post('http://localhost:3000/api/users/signup', {
+        axios.post('https://ninety-nine-blag.herokuapp.com/api/users/signup', {
           pseudo: this.pseudo,
           email: this.email,
           password: this.password
