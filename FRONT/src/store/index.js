@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'https://ninety-nine-blag.herokuapp.com/'
+axios.defaults.baseURL = 'https://ninety-nine-blag.herokuapp.com/api'
 
 Vue.use(Vuex)
 
