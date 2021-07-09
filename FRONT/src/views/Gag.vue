@@ -70,7 +70,7 @@ export default {
             this.$store.dispatch('getGags')
           })
           .catch(err => console.log(err))
-      }, 500)
+      }, 1000)
     }
   }
 }
