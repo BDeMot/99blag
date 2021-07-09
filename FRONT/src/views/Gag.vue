@@ -63,12 +63,14 @@ export default {
     },
     updateComments (addOrRemove) {
       addOrRemove === 'add' ? this.gag.nb_of_comments++ : this.gag.nb_of_comments--
-      axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
-        .then(res => {
-          this.comments = res.data.results.reverse()
-          this.$store.dispatch('getGags')
-        })
-        .catch(err => console.log(err))
+      setTimeout(() => {
+        axios.get('http://localhost:3000/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+          .then(res => {
+            this.comments = res.data.results.reverse()
+            this.$store.dispatch('getGags')
+          })
+          .catch(err => console.log(err))
+      }, 500)
     }
   }
 }
