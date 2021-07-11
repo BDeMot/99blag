@@ -12,15 +12,17 @@
       :id="gag.id"
       @updateThis="updateThisHere"/>
     <post-comment @updateComments="updateComments" />
-    <comments
-      class="comments"
-      v-for="comment in comments"
-      :key="comment.id"
-      :author="comment.user"
-      :date="$moment(comment.date).fromNow()"
-      :text="comment.comment"
-      @updateComments="updateComments"
-      />
+    <div class="container">
+      <comments
+        class="comments"
+        v-for="comment in comments"
+        :key="comment.id"
+        :author="comment.user"
+        :date="$moment(comment.date).fromNow()"
+        :text="comment.comment"
+        @updateComments="updateComments"
+        />
+    </div>
   </div>
 </template>
 
@@ -63,12 +65,14 @@ export default {
     },
     updateComments (addOrRemove) {
       addOrRemove === 'add' ? this.gag.nb_of_comments++ : this.gag.nb_of_comments--
-      axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
-        .then(res => {
-          this.comments = res.data.results.reverse()
-          this.$store.dispatch('getGags')
-        })
-        .catch(err => console.log(err))
+      setTimeout(() => {
+        axios.get('https://ninety-nine-blag.herokuapp.com/api/gags/:id/comments', { params: { gagId: Number(this.$route.params.id) } })
+          .then(res => {
+            this.comments = res.data.results.reverse()
+            this.$store.dispatch('getGags')
+          })
+          .catch(err => console.log(err))
+      }, 1000)
     }
   }
 }
@@ -81,13 +85,14 @@ export default {
 }
 
 .comments{
- border: 1px solid black;
  border-bottom: 0;
  overflow: hidden;
- &:last-child{
-   margin-bottom: 3vh;
-   border-bottom: 1px solid black;
- }
+}
+
+.container{
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 3vh;
 }
 
 </style>

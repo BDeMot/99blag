@@ -81,33 +81,30 @@ export default {
 
 <style lang="scss">
 .addForm{
-  background-color: white;
-  border: 1px solid black;
+  background-color: #333333;
   width: 50%;
   min-width: 280px;
   margin: auto;
   margin-top: 10vh;
   padding: 20px;
-  box-shadow: 5px 5px black;
+  border-radius: 15px;
   & input{
-    padding: 0;
     margin-bottom: 20px;
-    width: 60%;
+    padding-left: 10px;
+    width: 50%;
     min-width: 280px;
     height: 30px;
-    border: 1px solid black;
+    background-color: #333333;
+    border-radius: 15px;
+    border: 1px solid #10141A;
+    color: rgb(234, 230, 230);
     &.invalidSubmit{
-      box-shadow: 0;
-      background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-      background-size: 2.5px 2.5px;
+        color: #333333;
+        background-color:#10141A;
     }
     &.submit{
-      box-shadow: 2px 2px black;
-      transition: all 400ms ease;
-      width: 20%;
-      max-width: 150px;
-      background-color: white;
-      border: 1px solid black;
+        color: rgb(234, 230, 230);
+        background-color:#333333;
       &:hover{
         box-shadow: 0 0 white;
       }
@@ -125,35 +122,35 @@ export default {
   width: 60%;
   min-width: 280px;
   min-height: 30px;
-  border: 1px solid black;
+  border: 1px solid #10141A;
   margin-bottom: 20px;
   margin: auto;
   cursor : pointer;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
 }
 
 #imgPreview{
   margin: auto;
   width: 60%;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-  background-size: 2.5px 2.5px;
   & span {
     display: flex;
     height: 30px;
     width: 100%;
-    background: white;
+    background: #10141A;
     cursor: pointer;
     justify-content: center;
     align-items: center;
+    border-radius: 0 0 15px 15px;
   }
   & img {
+    border-radius: 15px 15px 0 0;
     width: 100%;
     transition: opacity 200ms ease;
     cursor: pointer;
@@ -164,11 +161,11 @@ export default {
 }
 
 .uploadSucces{
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 15px;
   margin: auto;
   font-weight: bold;
-  background-image: radial-gradient(rgba(30, 217, 52, 0.93) .5px, transparent 0);
-  background-size: 2.5px 2.5px;
+  background-color : #333333;
 }
 
 .size_alert{
