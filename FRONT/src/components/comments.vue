@@ -62,16 +62,20 @@ export default {
 <style lang="scss">
 .comment{
   font-family: 'Times New Roman', Times, serif;
-  background: white;
+  background: #333333;
   min-width: 60%;
   max-width: 650px;
   margin: auto;
+  border: 1px solid #10141A;
   &__nameDateDelete{
     display: flex;
     justify-content: space-between;
     margin: 5px;
     & svg {
       width: 15px;
+      & path{
+        fill: rgb(234, 230, 230)
+      }
       &:hover path{
         fill: red;
       }

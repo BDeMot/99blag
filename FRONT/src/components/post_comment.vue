@@ -46,34 +46,33 @@ export default {
   margin-bottom: 30px;
   & .submitComment{
     margin-bottom : 30px;
-    background-color: white;
-    border: 1px solid black;
+    color: rgb(234, 230, 230);
+    background-color:#333333;
+    border-radius: 15px;
     width: 50%;
     min-width: 300px;
     margin: auto;
     height: 30px;
     transition: all 400ms ease;
+    border: 1px solid #333333;
     &:enabled{
-      box-shadow: 2px 2px black;
+      color: rgb(234, 230, 230);
+      background-color:#333333;
     }
     &:disabled{
-      box-shadow: 0;
-      background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-      background-size: 2.5px 2.5px;
+      color: #333333;
+      background-color:#10141A;
     }
-    &:hover{
-        box-shadow: 0 0 white;
-      }
-      &:active{
-        box-shadow: inset 2px 2px black;
-        background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-        background-size: 2.5px 2.5px;
-      }
+    &:active{
+      box-shadow: inset 2px 2px black;
+    }
   }
 }
 textarea{
-  width: 98%;
+  width: 95%;
   border: 1px solid black;
+  border-radius: 15px;
+  padding-left: 10px;
 }
 
 </style>
