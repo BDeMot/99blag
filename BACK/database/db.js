@@ -1,10 +1,10 @@
 const mysql = require('mysql')
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'app',
-  password: 'azerty',
-  database: 'groupogags'
+const connection = mysql.createPool({
+  host: 'remotemysql.com',
+  user: 'Zxxul0n3FU',
+  password: 'LvvbwqByzs',
+  database: 'Zxxul0n3FU'
 })
   
 connection.connect(
