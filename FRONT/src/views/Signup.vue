@@ -81,8 +81,8 @@ export default {
 
 <style lang="scss">
 .registerForm{
-  background-color: white;
-  border: 1px solid black;
+  background-color: #333333;
+  border-radius: 15px;
   width: 50%;
   min-width: 280px;
   margin: auto;
@@ -94,31 +94,30 @@ export default {
      margin-top: 20px;
    }
   & input{
+    margin-bottom: 20px;
+    padding-left: 10px;
     width: 50%;
     min-width: 280px;
     height: 30px;
-    border: 1px solid black;
+    background-color: #333333;
+    border-radius: 15px;
+    border: 1px solid #10141A;
+    color: rgb(234, 230, 230);
     &[type=submit]{
       transition: all 100ms ease;
       width: 20%;
       max-width: 150px;
-      background-color: white;
-      border: 1px solid black;
-      margin-top: 40px;
+      cursor: pointer;
       &:disabled{
-        background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-        background-size: 2.5px 2.5px;
+        color: #333333;
+        background-color:#10141A;
       }
       &:enabled{
-        box-shadow: 2px 2px black;
-      }
-      &:hover{
-        box-shadow: 0 0 white;
+        color: rgb(234, 230, 230);
+        background-color:#333333;
       }
       &:active{
-        box-shadow: inset 2px 2px black;
-        background-image: radial-gradient(rgba(0, 0, 0, 0.4) .5px, transparent 0);
-        background-size: 2.5px 2.5px;
+        box-shadow: inset 2px 2px #10141A;
       }
     }
   }
