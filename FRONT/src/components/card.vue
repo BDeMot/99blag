@@ -8,7 +8,8 @@
         </svg>
       </div>
       <div class="card__image">
-        <img v-lazy="imageUrl" :alt="title"/>
+        <img v-show="imgLoaded" v-lazy="imageUrl" :alt="title" @load="onImgLoad"/>
+        <loading-spinner v-if="!imgLoaded"/>
       </div>
     </router-link>
     <div class="card__legend">
@@ -39,14 +40,17 @@
 
 <script>
 import axios from 'axios'
+import loadingSpinner from '../components/loadingSpinner.vue'
 
 export default {
+  components: { loadingSpinner },
 
   name: 'card',
   data () {
     return {
       like: 0,
-      userHavePrivilege: 0
+      userHavePrivilege: 0,
+      imgLoaded: false
     }
   },
   props: {
@@ -76,6 +80,9 @@ export default {
     }
   },
   methods: {
+    onImgLoad () {
+      this.imgLoaded = true
+    },
     likeOrDislike (likeType) {
       if (this.$cookies.isKey('session')) {
         if (this.like === likeType) {
