@@ -8,7 +8,7 @@
         </svg>
       </div>
       <div class="card__image">
-        <img v-show="imgLoaded" v-lazy="imageUrl" :alt="title" @load="onImgLoad"/>
+        <img v-show="imgLoaded" v-lazy="imageUrl" :alt="title" @load="onImgLoad"/> <!-- TODO ajouter la taille des images en attributs afin de ne pas moddifier la mise en page lors du chargement -->
         <loading-spinner v-if="!imgLoaded"/>
       </div>
     </router-link>

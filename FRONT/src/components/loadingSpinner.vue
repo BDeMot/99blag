@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!imgLoaded" class="lds-spinner">
+  <div class="lds-spinner">
     <div></div>
     <div></div>
     <div></div>
