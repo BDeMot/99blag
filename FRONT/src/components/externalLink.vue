@@ -53,9 +53,6 @@ export default {
       })
       .catch(err => console.log(err))
   },
-  mounted () {
-    this.gag = this.$store.state.gags.find(gag => gag.id === window.location.pathname.split('/')[2])
-  },
   methods: {
     updateThisHere () {
       setTimeout(() => {
@@ -95,10 +92,6 @@ export default {
   overflow: hidden;
   border-radius: 15px;
   margin-bottom: 3vh;
-}
-
-.s{
-  border:1px solid red;
 }
 
 </style>
