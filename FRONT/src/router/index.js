@@ -20,7 +20,7 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
-    path: '/gag/:pathMatch(.*)',
+    path: '/gags/:pathMatch(.*)',
     name: 'externalLink',
     component: () => import('../components/externalLink.vue')
   },
